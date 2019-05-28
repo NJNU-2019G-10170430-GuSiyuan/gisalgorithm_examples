@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>ËÄ²æÊ÷</title>
-        <meta name = "author" content = "10170430 ¹ËË¼Ôµ"/>
+        <title>å››å‰æ ‘</title>
+        <meta name = "author" content = "10170430 é¡¾æ€ç¼˜"/>
         <style type = "text/css">
             #container{margin:0 auto; width:900px;}
             #selectFrame {margin:0 auto; padding:10px; border-style:solid; border-width:2px; border-color:#000; width:450px}
@@ -13,29 +13,29 @@
     <body>
         <div id = "container">
             <div id = "selectFrame">
-                Ñ¡ÔñQuardtr.txtÎÄ¼ş<input id = "openFile" type = "file" onchange = "readQuardFile()"/><br>
+                é€‰æ‹©Quardtr.txtæ–‡ä»¶<input id = "openFile" type = "file" onchange = "readQuardFile()"/><br>
             </div>
         </div>
         <script type = "text/Javascript">
             /************************************
-            * È«¾Ö±äÁ¿
-            * °üÀ¨¾ØÕóÊı×é¡¢Morton±àÂëºóÏßĞÔËÄ²æÊ÷
-            * ĞĞÁĞÔö¼Ó¹æÔò
+            * å…¨å±€å˜é‡
+            * åŒ…æ‹¬çŸ©é˜µæ•°ç»„ã€Mortonç¼–ç åçº¿æ€§å››å‰æ ‘
+            * è¡Œåˆ—å¢åŠ è§„åˆ™
             *************************************/
             var matrix = new Array(), mortonMatrix = new Array();
             var ruleIJ = [[0, 0], [0, 1], [1, 0], [1, 1]]
             
             /**********************************************
-             * ÓÃmortonÂë½«µ±Ç°¾ØÕó»æÖÆµ½ÍøÒ³ÖĞ£¬°üÀ¨
-             * 1¡¢¾ØÕóµØÖ··´Ëã¡¢½«µ¥¸öÇøÓòÊı¾İ½øĞĞÔËËã
-             * 2¡¢»æÖÆµ¥¸öÕı·½ĞÎ¡¢»æÖÆÈ«²¿¾ØĞÎ
+             * ç”¨mortonç å°†å½“å‰çŸ©é˜µç»˜åˆ¶åˆ°ç½‘é¡µä¸­ï¼ŒåŒ…æ‹¬
+             * 1ã€çŸ©é˜µåœ°å€åç®—ã€å°†å•ä¸ªåŒºåŸŸæ•°æ®è¿›è¡Œè¿ç®—
+             * 2ã€ç»˜åˆ¶å•ä¸ªæ­£æ–¹å½¢ã€ç»˜åˆ¶å…¨éƒ¨çŸ©å½¢
              * **********************************/
-            //mortonµØÖ··´Ëã
+            //mortonåœ°å€åç®—
             function antiAddress(address)
             {
                 var strLen = address.length;
                 var Ib = "", Jb = "";
-                //°´Î»¼ÆËã¶ÔĞĞºÍÁĞµÄ¹±Ï×
+                //æŒ‰ä½è®¡ç®—å¯¹è¡Œå’Œåˆ—çš„è´¡çŒ®
                 for (var n = 0; n < strLen; n++)
                 {
                     switch(parseInt(address[n]))
@@ -56,7 +56,7 @@
                 }//for
                 return Array(parseInt(Ib,2).toString(10), parseInt(Jb, 2).toString(10));
             }
-            //»ñµÃµ¥¸öÊôĞÔÊı¾İµÄ»æÖÆÆğµã£¬´óĞ¡ºÍÊôĞÔÖµ
+            //è·å¾—å•ä¸ªå±æ€§æ•°æ®çš„ç»˜åˆ¶èµ·ç‚¹ï¼Œå¤§å°å’Œå±æ€§å€¼
             function antiMorton(eachCode, areaSize)
             {
                 var XY = antiAddress(eachCode.address);
@@ -67,42 +67,42 @@
                 return {XY:[x,y], size:eachAreaSize, num:eachCode.num};
             }
             
-            //»æÖÆÕı·½ĞÎ£¬²¢½«ÊıÖµ±êÔÚÖĞ¼ä
+            //ç»˜åˆ¶æ­£æ–¹å½¢ï¼Œå¹¶å°†æ•°å€¼æ ‡åœ¨ä¸­é—´
             function drawSquare(drawCanvas, x, y, side, number)
             {
-                //¶¨Òå»æÖÆËÄ¸ö½ÇµÄË³Ğò
+                //å®šä¹‰ç»˜åˆ¶å››ä¸ªè§’çš„é¡ºåº
                 var drawRule = [[0, 0], [0, 1], [1, 1], [1, 0]]
-                //»æÖÆÕı·½ĞÎ
+                //ç»˜åˆ¶æ­£æ–¹å½¢
                 drawCanvas.beginPath();
                 drawCanvas.moveTo(y, x);
                 for (var m = 1; m < 4; m++)
                     drawCanvas.lineTo(y + drawRule[m][1]*side, x + drawRule[m][0]*side);
                 drawCanvas.closePath();
-                drawCanvas.stroke();                                //»æÖÆÏßÌõ
-                //±ê¼ÇÊôĞÔ
-                drawCanvas.font = "20px ºÚÌå";
+                drawCanvas.stroke();                                //ç»˜åˆ¶çº¿æ¡
+                //æ ‡è®°å±æ€§
+                drawCanvas.font = "20px é»‘ä½“";
                 drawCanvas.fillText(number, y + side/2 - 5, x + side/2 + 5);
                 return ;
             }
             
-            //¸ù¾İmortonÂë»æÖÆ¾ØÕó
+            //æ ¹æ®mortonç ç»˜åˆ¶çŸ©é˜µ
             function drawQuard(mortonMatrix)
             {
                 var drawDiv = document.createElement("div")
                 drawDiv.id = "drawDiv";
                 document.getElementById("container").appendChild(drawDiv);
-                //´´½¨»­²¼
+                //åˆ›å»ºç”»å¸ƒ
                 var canvas = document.createElement("canvas")
                 canvas.id = "myCanvas";
                 canvas.width = drawDiv.offsetWidth - 40, canvas.height = drawDiv.offsetHeight - 40;
                 drawDiv.appendChild(canvas);
-                //×¼±¸»æÖÆ
+                //å‡†å¤‡ç»˜åˆ¶
                 var drawCanvas = canvas.getContext("2d");
-                drawCanvas.lineWidth = 2;                          //ÉèÖÃÏß¿í
-                drawCanvas.strokeStyle = "blue";                    //ÉèÖÃÏßÉ«
-                var gradInterval = 48;                              //ÉèÖÃµ¥ÔªÍø¸ñ´óĞ¡
-                var codeNum = mortonMatrix[mortonMatrix.length - 1][0]  //µ¥ÔªÍø¸ñµÄÊıÁ¿
-                var gradNum = mortonMatrix.length - 1;              //mortonÂë¼ÇÂ¼µÄ¿éÊı
+                drawCanvas.lineWidth = 2;                          //è®¾ç½®çº¿å®½
+                drawCanvas.strokeStyle = "blue";                    //è®¾ç½®çº¿è‰²
+                var gradInterval = 48;                              //è®¾ç½®å•å…ƒç½‘æ ¼å¤§å°
+                var codeNum = mortonMatrix[mortonMatrix.length - 1][0]  //å•å…ƒç½‘æ ¼çš„æ•°é‡
+                var gradNum = mortonMatrix.length - 1;              //mortonç è®°å½•çš„å—æ•°
                 var drawRule = [[0, 0], [0, 1], [1, 1], [1, 0]]
                 for (var n = 0; n < gradNum; n++)
                 {
@@ -112,83 +112,83 @@
                 return;
             }
             /**************************************************
-            * mortonÂëËã·¨£¬°üÀ¨
-            * 1¡¢ÔÚÕûÊıÇ°²¹Î»0£»Í¨¹ıĞĞÁĞºÅ¼ÆËãmortonÂëÖĞµÄ±êºÅ
-            * 2¡¢ÅĞ¶Ïµ±Ç°ÇøÓòÊôĞÔÊÇ·ñÈ«²¿ÏàµÈ
-            * 3¡¢¶ÔÇøÓò½øĞĞµİ¹é¼ÆËã
-            * ·µ»ØÊı¾İÎªËÄ²æÊ÷ÏßĞÔ±àÂëÊı×é
+            * mortonç ç®—æ³•ï¼ŒåŒ…æ‹¬
+            * 1ã€åœ¨æ•´æ•°å‰è¡¥ä½0ï¼›é€šè¿‡è¡Œåˆ—å·è®¡ç®—mortonç ä¸­çš„æ ‡å·
+            * 2ã€åˆ¤æ–­å½“å‰åŒºåŸŸå±æ€§æ˜¯å¦å…¨éƒ¨ç›¸ç­‰
+            * 3ã€å¯¹åŒºåŸŸè¿›è¡Œé€’å½’è®¡ç®—
+            * è¿”å›æ•°æ®ä¸ºå››å‰æ ‘çº¿æ€§ç¼–ç æ•°ç»„
             ***************************************************/
-            //ÕûĞÍÇ°²¹Î»0
+            //æ•´å‹å‰è¡¥ä½0
             function setZero(num, n)
             {
                 return (Array(n).join(0) + num).slice(-n);
             }
-            //Í¨¹ıºá×İ×ø±ê¼ÆËãÎ»ÖÃµÄ±àºÅ£¬´«Èë×ø±êÎªÊ®½øÖÆ
+            //é€šè¿‡æ¨ªçºµåæ ‡è®¡ç®—ä½ç½®çš„ç¼–å·ï¼Œä¼ å…¥åæ ‡ä¸ºåè¿›åˆ¶
             function countNumber(Id, Jd)
             {
-                //¼ÆËã×ø±êÖµµÄ¶ş½øÖÆÊı
+                //è®¡ç®—åæ ‡å€¼çš„äºŒè¿›åˆ¶æ•°
                 var Ib = parseInt(Id).toString(2), Jb = parseInt(Jd).toString(2);
-                //¼ÆËãµ±Ç°Êı×î³¤³¤¶È
+                //è®¡ç®—å½“å‰æ•°æœ€é•¿é•¿åº¦
                 var numberlen = (Ib.length > Jb.length)? Ib.length: Jb.length;
-                var number = "";        //´æ´¢½á¹ûµÄ×Ö·û´®
+                var number = "";        //å­˜å‚¨ç»“æœçš„å­—ç¬¦ä¸²
     
-                //½«È±ÉÙµÄÎ»Êı²¹Î»0
+                //å°†ç¼ºå°‘çš„ä½æ•°è¡¥ä½0
                 Ib = setZero(Ib, numberlen), Jb = setZero(Jb, numberlen);
-                //ÖğÎ»Ïà¼Ó£¬¼ÆËãµØÖ·
+                //é€ä½ç›¸åŠ ï¼Œè®¡ç®—åœ°å€
                 for (var i = 0; i <numberlen; i++)
                     number += (parseInt(Ib[i] * 2) + parseInt(Jb[i])).toString();
     
                 return number;
             }
-            //Í¨¹ıºá×İ×ø±ê¼ÆËãÎ»ÖÃµÄ±àºÅ£¬×ª»»ÎªÊ®½øÖÆ±àÂë
+            //é€šè¿‡æ¨ªçºµåæ ‡è®¡ç®—ä½ç½®çš„ç¼–å·ï¼Œè½¬æ¢ä¸ºåè¿›åˆ¶ç¼–ç 
             funcation transferNumber(Id,Jd)
             {
-            	//¼ÆËã×ø±êÖµµÄ¶ş½øÖÆÊı
+            	//è®¡ç®—åæ ‡å€¼çš„äºŒè¿›åˆ¶æ•°
                 var Ib = parseInt(Id).toString(2), Jb = parseInt(Jd).toString(2);
-                //¼ÆËãµ±Ç°Êı×î³¤³¤¶È
+                //è®¡ç®—å½“å‰æ•°æœ€é•¿é•¿åº¦
                 var numberlen = (Ib.length > Jb.length)? Ib.length: Jb.length;
-                var number = "";        //´æ´¢½á¹ûµÄ×Ö·û´®
-                //½«È±ÉÙµÄÎ»Êı²¹Î»0
+                var number = "";        //å­˜å‚¨ç»“æœçš„å­—ç¬¦ä¸²
+                //å°†ç¼ºå°‘çš„ä½æ•°è¡¥ä½0
                 Ib = setZero(Ib, numberlen), Jb = setZero(Jb, numberlen);
-                //ÖğÎ»Ïà¼Ó£¬¼ÆËãµØÖ·
+                //é€ä½ç›¸åŠ ï¼Œè®¡ç®—åœ°å€
                 for (var i = 0; i <numberlen; i++)
                     number += (parseInt(Ib[i] * 2) + parseInt(Jb[i])).toString();
     
                 return number;
             }
-            //ÅĞ¶Ïµ±Ç°ÇøÓòÖĞµÄÔªËØÊÇ²»ÊÇÈ«²¿ÏàµÈ
-            //´«ÈëÊı¾İÎªÔÚ¾ØÕóÖĞµÄÎ»ÖÃ£¬ºÍÇøÓòµÄ´óĞ¡
+            //åˆ¤æ–­å½“å‰åŒºåŸŸä¸­çš„å…ƒç´ æ˜¯ä¸æ˜¯å…¨éƒ¨ç›¸ç­‰
+            //ä¼ å…¥æ•°æ®ä¸ºåœ¨çŸ©é˜µä¸­çš„ä½ç½®ï¼Œå’ŒåŒºåŸŸçš„å¤§å°
             function judgeEqual(startI, startJ, diGradNum)
             {
-                var standard = matrix[startI][startJ];      //ÉèÖÃ±È½Ï±ê×¼
-                //Ñ­»·±éÀúÇøÓòÖĞËùÓĞµÄÊı£¬²é¿´ÊÇ·ñÓë±ê×¼ÊıÏàµÈ
+                var standard = matrix[startI][startJ];      //è®¾ç½®æ¯”è¾ƒæ ‡å‡†
+                //å¾ªç¯éå†åŒºåŸŸä¸­æ‰€æœ‰çš„æ•°ï¼ŒæŸ¥çœ‹æ˜¯å¦ä¸æ ‡å‡†æ•°ç›¸ç­‰
                 for (var i = 0; i < diGradNum; i++)
                     for (var j = 0; j < diGradNum; j++)
                         if (matrix[startI + i][startJ + j] != standard) 
-                            return false;       //ÓĞÒ»¸öÊı²»ÏàµÈ
-                return true;                    //Ñ­»·½áÊø£¬ËùÓĞÊı¶¼ÏàµÈ
+                            return false;       //æœ‰ä¸€ä¸ªæ•°ä¸ç›¸ç­‰
+                return true;                    //å¾ªç¯ç»“æŸï¼Œæ‰€æœ‰æ•°éƒ½ç›¸ç­‰
             }
-            //ÀûÓÃµİ¹é½øĞĞµ±Ç°ÇøÓòµÄËÄ²æÊ÷±àÂë
-            //´«ÈëÊı¾İÎª´æ´¢½á¹ûµÄÊı×é¡¢¾ØÕóÆğÊ¼Î»ÖÃ¡¢¾ØÕó´óĞ¡¡¢µ±Ç°Ê÷Éî¶È
+            //åˆ©ç”¨é€’å½’è¿›è¡Œå½“å‰åŒºåŸŸçš„å››å‰æ ‘ç¼–ç 
+            //ä¼ å…¥æ•°æ®ä¸ºå­˜å‚¨ç»“æœçš„æ•°ç»„ã€çŸ©é˜µèµ·å§‹ä½ç½®ã€çŸ©é˜µå¤§å°ã€å½“å‰æ ‘æ·±åº¦
             function divisionMatrix(resultArray, startI, startJ, areaGradNum, depth)
             {
-                //¾ØÕó²»ÄÜÔÙ·Ö¸î£¬¼ÓÈëµ±Ç°ÇøÓòÊı¾İºó½áÊøµİ¹é
+                //çŸ©é˜µä¸èƒ½å†åˆ†å‰²ï¼ŒåŠ å…¥å½“å‰åŒºåŸŸæ•°æ®åç»“æŸé€’å½’
                 if (areaGradNum == 1)
                 {
                     resultArray.push({address:countNumber(startI, startJ), depth:depth, num:matrix[startI][startJ]}); 
                     return resultArray;
                 }
-                var diGradNum = areaGradNum / 2;        //½øĞĞ·Ö¸îºóµ¥ÇøÓò¸ñÍøÊı
+                var diGradNum = areaGradNum / 2;        //è¿›è¡Œåˆ†å‰²åå•åŒºåŸŸæ ¼ç½‘æ•°
     
-                //µ±Ç°¾ØÕóËÄ¸öÇøÓò½øĞĞ±éÀú
+                //å½“å‰çŸ©é˜µå››ä¸ªåŒºåŸŸè¿›è¡Œéå†
                 for (var rule = 0; rule < 4; rule++)
                 {
-                    //µ±Ç°ÇøÓòÆğÊ¼Î»ÖÃ
+                    //å½“å‰åŒºåŸŸèµ·å§‹ä½ç½®
                     var corStartI = startI + diGradNum * ruleIJ[rule][0];
                     var corStartJ = startJ + diGradNum * ruleIJ[rule][1];
-                    //ÅĞ¶Ïµ±Ç°Ò»¸öÇøÓòÊÇ·ñÖµÈ«²¿ÏàÍ¬
-                    //ÏàÍ¬£¬¼ÓÈëÊı×é²¢¼ÌĞøÑ­»·
-                    //²»Í¬£¬ÏòÏÂ½øĞĞµİ¹é£¬ÇóËã¸üĞ¡ÇøÓò·¶Î§ÄÚµÄ±àÂë£¬Éî¶È¼Ó1
+                    //åˆ¤æ–­å½“å‰ä¸€ä¸ªåŒºåŸŸæ˜¯å¦å€¼å…¨éƒ¨ç›¸åŒ
+                    //ç›¸åŒï¼ŒåŠ å…¥æ•°ç»„å¹¶ç»§ç»­å¾ªç¯
+                    //ä¸åŒï¼Œå‘ä¸‹è¿›è¡Œé€’å½’ï¼Œæ±‚ç®—æ›´å°åŒºåŸŸèŒƒå›´å†…çš„ç¼–ç ï¼Œæ·±åº¦åŠ 1
                     if (judgeEqual(corStartI, corStartJ, diGradNum))
                         resultArray.push({address:countNumber(corStartI/diGradNum, corStartJ/diGradNum), depth:depth, num:matrix[corStartI][corStartJ]}); 
                     else
@@ -196,7 +196,7 @@
                 }
                 return resultArray;
             }
-            //½«µ±Ç°È«¾Ö±äÁ¿ÖĞµÄÊı¾İ½øĞĞmorton±àÂë
+            //å°†å½“å‰å…¨å±€å˜é‡ä¸­çš„æ•°æ®è¿›è¡Œmortonç¼–ç 
             function codingMatrix()
             {
                 var mortonMatrix = new Array();
@@ -204,40 +204,40 @@
                 mortonMatrix.push(matrix[matrix.length - 1]);
                 return mortonMatrix;
             }
-            //ÔÚÆÁÄ»ÉÏ´òÓ¡±àÂëºóµÄÊı¾İ
+            //åœ¨å±å¹•ä¸Šæ‰“å°ç¼–ç åçš„æ•°æ®
             function printMorton(mortonMatrix)
             {
                 var codNum = mortonMatrix.length - 1;
                 var writeDiv = document.createElement("div");
                 writeDiv.id = "writeDiv";
                 var text = document.createElement("div")
-                text.innerHTML = "morton±àÂëÎª:<br>"
+                text.innerHTML = "mortonç¼–ç ä¸º:<br>"
                 writeDiv.appendChild(text);
-                //½«Ã¿¸ö±àÂë¼ÓÈëÎÄ±¾
+                //å°†æ¯ä¸ªç¼–ç åŠ å…¥æ–‡æœ¬
                 for (var n = 0; n < codNum; n++)
                 {
                     text = document.createElement("div")
-                    text.innerHTML = "±àÂë£º" + mortonMatrix[n].address + "\tÉî¶È£º" + mortonMatrix[n].depth + "\tÊıÖµ£º" + mortonMatrix[n].num + '<br>';
+                    text.innerHTML = "ç¼–ç ï¼š" + mortonMatrix[n].address + "\tæ·±åº¦ï¼š" + mortonMatrix[n].depth + "\tæ•°å€¼ï¼š" + mortonMatrix[n].num + '<br>';
                     writeDiv.appendChild(text);
                 }
-                //½«ËùÓĞ×°ÈëÈİÆ÷
+                //å°†æ‰€æœ‰è£…å…¥å®¹å™¨
                 document.getElementById("container").appendChild(writeDiv);
                 return ;
             }
             /*************************************
-            *¶ÁÈ¡¾ØÕóÊı¾İ£¬°üÀ¨£º
-            *1¡¢´ÓÍøÒ³ÖĞ¶ÁÈ¡ÎÄ¼ş²¢µ÷ÓÃÏÂÒ»²½²Ù×÷
-            *2¡¢½«×Ö·û´®×ªÎªÊı×Ö
+            *è¯»å–çŸ©é˜µæ•°æ®ï¼ŒåŒ…æ‹¬ï¼š
+            *1ã€ä»ç½‘é¡µä¸­è¯»å–æ–‡ä»¶å¹¶è°ƒç”¨ä¸‹ä¸€æ­¥æ“ä½œ
+            *2ã€å°†å­—ç¬¦ä¸²è½¬ä¸ºæ•°å­—
             * ***********************************/
             function quardStr2quardXY(quardStr)
             {
                 var quardMatrix = new Array();  
-                var strs = quardStr.split("\n");     //ÉèÖÃ·Ö¸î
-                //»ñµÃ¾ØÕóµÄĞÎÌ¬£¬²¢É¾³ı±£´æ¾ØÕóĞÎÌ¬µÄÊı¾İĞĞ
+                var strs = quardStr.split("\n");     //è®¾ç½®åˆ†å‰²
+                //è·å¾—çŸ©é˜µçš„å½¢æ€ï¼Œå¹¶åˆ é™¤ä¿å­˜çŸ©é˜µå½¢æ€çš„æ•°æ®è¡Œ
                 var count = strs.shift().split(",");
                 var countI = parseInt(count[0]), countJ = parseInt(count[1]);
                 
-                //½«¾ØÕóÖĞÃ¿¸öÊı×ª»»ÎªÕûĞÍĞÎÊ½£¬²¢´æÈë¶şÎ¬Êı×é
+                //å°†çŸ©é˜µä¸­æ¯ä¸ªæ•°è½¬æ¢ä¸ºæ•´å‹å½¢å¼ï¼Œå¹¶å­˜å…¥äºŒç»´æ•°ç»„
                 for (var i = 0; i < countI ; i++)
                 {
                     quardMatrix[i] = new Array(countJ)
@@ -246,18 +246,18 @@
                         quardMatrix[i][j] = parseInt(eachStr[j])
                 }
                 
-                quardMatrix.push([countI, countJ]);     //½«¾ØÕóĞÎÌ¬´æÈëÊı×é
+                quardMatrix.push([countI, countJ]);     //å°†çŸ©é˜µå½¢æ€å­˜å…¥æ•°ç»„
                 return quardMatrix;
             }
-            //¶ÁÈ¡ÎÄ¼ş²¢»æÖÆ
+            //è¯»å–æ–‡ä»¶å¹¶ç»˜åˆ¶
             function readQuardFile()
             {  
-                var quardFile = document.getElementById("openFile").files[0];  //»ñÈ¡ÎÄ¼ş
+                var quardFile = document.getElementById("openFile").files[0];  //è·å–æ–‡ä»¶
                 var reader = new FileReader();  
                 reader.readAsText(quardFile);  
                 reader.onload = function(e)
                 {
-                    matrix = quardStr2quardXY(this.result)   //½«¶ÁÈ¡µÄ×Ö·û´®×ªÎªÊı×Ö
+                    matrix = quardStr2quardXY(this.result)   //å°†è¯»å–çš„å­—ç¬¦ä¸²è½¬ä¸ºæ•°å­—
                     mortonMatrix = codingMatrix();
                     printMorton(mortonMatrix);
                     drawQuard(mortonMatrix);
