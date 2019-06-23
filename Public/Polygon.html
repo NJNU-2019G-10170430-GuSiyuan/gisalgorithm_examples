@@ -1,11 +1,10 @@
-
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Í¶Ó°·´ËãºÍÃæ»ı¼ÆËã</title>
-    <meta name = "author" content = "10170430 ¹ËË¼Ôµ"/>
+    <title>æŠ•å½±åç®—å’Œé¢ç§¯è®¡ç®—</title>
+    <meta name = "author" content = "10170430 é¡¾æ€ç¼˜"/>
     <style type = "text/css">
-        body{ font-family:"ºÚÌå"; font-size:14px;}
+        body{ font-family:"é»‘ä½“"; font-size:14px;}
         #container{margin:0 auto; width:900px;}
         #header{margin:0 auto; margin-bottom:10px; padding:10px; border-style:solid; border-width:2px; border-color:#000; width:510px;}
         .containCanvas{ margin:0 auto;border-style:solid; border-width:2px; border-color:#000;}
@@ -15,8 +14,8 @@
     <div id = "container">
         <div id = "header">
             <input id = "openMapFile" type = "file" onchange = "readMapFile()"/>  <br>
-            <input id = "trans2LatLong" type = "button" value = "±ä»»Îª¾­Î³¶È×ø±êÏÔÊ¾" onclick = "setProjectSign()"/>
-            ¼ÆËãÃæ»ı<select id = "selectE" style="display:none" onchange='setArea()'></select>
+            <input id = "trans2LatLong" type = "button" value = "å˜æ¢ä¸ºç»çº¬åº¦åæ ‡æ˜¾ç¤º" onclick = "setProjectSign()"/>
+            è®¡ç®—é¢ç§¯<select id = "selectE" style="display:none" onchange='setArea()'></select>
         </div>
         <div id = "canvasDiv" class = "containCanvas">
                 <canvas id = "mapDrawing"/>
@@ -24,28 +23,28 @@
 
     </div>
     <script type = "text/Javascript">
-var projectSign = 0;        //¼ÇÂ¼Í¶Ó°×´Ì¬£¬Å¼ÊıÎªÄ«¿¨ÍĞÍ¶Ó°£¬ÆæÊıÎªÎ´Í¶Ó°
-var myMap = new Array();    //Ê×Î»¼ÇÂ¼×ÜÏß¶ÎÊı
-var areaList = new Array(); //´æ´¢µØÇøÃæ»ıºÍÖĞĞÄÎ»ÖÃÊı×é
-var gCoordinates84 = { a:6378137, b:6356752.3142};      //84×ø±êÏµ²ÎÊı
-var areaNum;                //ÏÔÊ¾Ãæ»ıµÄÇøÓòµÄ±àºÅ
-//¶à±ßĞÎ±àºÅÓëÇøÓòÃû³Æ±àºÅ
+var projectSign = 0;        //è®°å½•æŠ•å½±çŠ¶æ€ï¼Œå¶æ•°ä¸ºå¢¨å¡æ‰˜æŠ•å½±ï¼Œå¥‡æ•°ä¸ºæœªæŠ•å½±
+var myMap = new Array();    //é¦–ä½è®°å½•æ€»çº¿æ®µæ•°
+var areaList = new Array(); //å­˜å‚¨åœ°åŒºé¢ç§¯å’Œä¸­å¿ƒä½ç½®æ•°ç»„
+var gCoordinates84 = { a:6378137, b:6356752.3142};      //84åæ ‡ç³»å‚æ•°
+var areaNum;                //æ˜¾ç¤ºé¢ç§¯çš„åŒºåŸŸçš„ç¼–å·
+//å¤šè¾¹å½¢ç¼–å·ä¸åŒºåŸŸåç§°ç¼–å·
 var areaCode = new Array();
-areaCode[1] = "Á¬ÔÆ¸Û";
-areaCode[7] = "ĞìÖİ";
-areaCode[8] = "ËŞÇ¨";
-areaCode[9] = "ÑÎ³Ç";
-areaCode[10] = "»´°²";
-areaCode[11] = "Ì©Öİ";
-areaCode[12] = "ÄÏÍ¨";
-areaCode[13] = "ÑïÖİ";
-areaCode[14] = "ÄÏ¾©";
-areaCode[15] = "Õò½­";
-areaCode[16] = "³£Öİ";
-areaCode[17] = "ÎŞÎı";
-areaCode[18] = "ËÕÖİ"
+areaCode[1] = "è¿äº‘æ¸¯";
+areaCode[7] = "å¾å·";
+areaCode[8] = "å®¿è¿";
+areaCode[9] = "ç›åŸ";
+areaCode[10] = "æ·®å®‰";
+areaCode[11] = "æ³°å·";
+areaCode[12] = "å—é€š";
+areaCode[13] = "æ‰¬å·";
+areaCode[14] = "å—äº¬";
+areaCode[15] = "é•‡æ±Ÿ";
+areaCode[16] = "å¸¸å·";
+areaCode[17] = "æ— é”¡";
+areaCode[18] = "è‹å·"
 
-//¼ÆËã84×ø±êÏµÊ£Óà²ÎÊı
+//è®¡ç®—84åæ ‡ç³»å‰©ä½™å‚æ•°
 function gCoor84Cal(gCoordinate)
 {
     var a = gCoordinate.a, b = gCoordinate.b;
@@ -55,23 +54,23 @@ function gCoor84Cal(gCoordinate)
 
     return newGCoordinate;
 }
-//½Ç¶È»¡¶ÈÏà»¥×ª»»
+//è§’åº¦å¼§åº¦ç›¸äº’è½¬æ¢
 function An2Ra(angle) { return (angle / 180) * Math.PI; }
 function Ra2An(angle) { return (angle / Math.PI) * 180; }
 
-//ÅĞ¶ÏĞı×ª·½Ïò
+//åˆ¤æ–­æ—‹è½¬æ–¹å‘
 function judgeClockwise(prePointX, latPointX)
 {
-    if (prePointX <= latPointX)  return -1;  //ÄæÊ±Õë£¬¼õÃæ»ı
-    else return 1;                          //Ë³Ê±Õë£¬¼ÓÃæ»ı
+    if (prePointX <= latPointX)  return -1;  //é€†æ—¶é’ˆï¼Œå‡é¢ç§¯
+    else return 1;                          //é¡ºæ—¶é’ˆï¼ŒåŠ é¢ç§¯
 }
-//ÕÒµ½µ¥¸öÇøÓòµÄ×î´ó×îĞ¡Öµ
+//æ‰¾åˆ°å•ä¸ªåŒºåŸŸçš„æœ€å¤§æœ€å°å€¼
 function findAreaBorder(areaPoints)
 {
-    //ÉèÖÃºáÊúÖá×î´ó×îĞ¡±êÖ¾£¬ÒÔÄ«¿¨ÍĞÍ¶Ó°µÄ×î´ó×îĞ¡ÖµÎª±êÖ¾
+    //è®¾ç½®æ¨ªç«–è½´æœ€å¤§æœ€å°æ ‡å¿—ï¼Œä»¥å¢¨å¡æ‰˜æŠ•å½±çš„æœ€å¤§æœ€å°å€¼ä¸ºæ ‡å¿—
     var maxX = -20100000, maxY = -20100000, minX = 20100000, minY = 20100000; 
     var pointNum = areaPoints.length; 
-    var corX, corY;             //µ±Ç°X£¬Y
+    var corX, corY;             //å½“å‰Xï¼ŒY
     for (var j = 0; j < pointNum; j++)
     {
         corX = areaPoints[j][0], corY = areaPoints[j][1];
@@ -82,12 +81,12 @@ function findAreaBorder(areaPoints)
     }//for point j
     return Array(minX, maxX, minY, maxY);
 }
-//¼ÆËãµ¥¸öÌİĞÎµÄÃæ»ı
+//è®¡ç®—å•ä¸ªæ¢¯å½¢çš„é¢ç§¯
 function countEachTArea(x1, x2, y1, y2, GC)
 {
     var a = GC.a, b = GC.b, e2 = GC.e2, e_2 = GC.e_2;
     var e = Math.sqrt(e2), e_ = Math.sqrt(e_2);
-    //³£Êı²ÎÊı
+    //å¸¸æ•°å‚æ•°
     //var A = 1 + (3/4)*Math.pow(e, 2) + (45/64)*Math.pow(e, 4) + (175/256)*Math.pow(e, 6) + (11025/16384)*Math.pow(e, 8) + (43659/65536)*Math.pow(e, 10) + (693693/1048576)*Math.pow(e, 12);
     var A = 1 + (1/2)*Math.pow(e, 2) + (3/8)*Math.pow(e, 4) + (5/16)*Math.pow(e, 6);
     //var B = (3/4)*Math.pow(e, 2) + (45/64)*Math.pow(e, 4) + (175/256)*Math.pow(e, 6) + (11025/16384)*Math.pow(e, 8) + (43659/65536)*Math.pow(e, 10) + (693693/1048572)*Math.pow(e, 12);
@@ -105,16 +104,16 @@ function countEachTArea(x1, x2, y1, y2, GC)
     //var F = (693/1310720)*Math.pow(e, 10) + (9009/5242880)*Math.pow(e, 12);
     var G = (1001/4096)*Math.pow(e, 12);
     //var G = (1001/8388608)*Math.pow(e, 12);
-    //¼ÆËã²ÎÊı
+    //è®¡ç®—å‚æ•°
     var K = 2*a*a * (1 - e2) * An2Ra(x2 - x1);
-    //¼ÆËãÃæ»ı
+    //è®¡ç®—é¢ç§¯
     var dy = An2Ra(y2 - y1);
     var my = An2Ra(y1 + y2) / 2;
     //var T = K * (A*Math.sin(dy/2)*Math.cos(my) - B*Math.sin((3*dy)/2)*Math.cos(3*my) + C*Math.sin((5*dy)/2)*Math.cos(5*my) - D*Math.sin((7*dy)/2)*Math.cos(7*my) + E*Math.sin((9*dy)/2)*Math.cos(9*my) - F*Math.sin((11*dy)/2)*Math.cos(11*my) + G*Math.sin((13*dy)/2)*Math.cos(13*my));
     var T = K * (A*Math.sin(dy/2)*Math.cos(my) - B*Math.sin((3*dy)/2)*Math.cos(3*my) + C*Math.sin((5*dy)/2)*Math.cos(5*my) - D*Math.sin((7*dy)/2)*Math.cos(7*my));
     return T;
 }
-//¼ÆËãµ¥¸öÇøÓòµÄÃæ»ı
+//è®¡ç®—å•ä¸ªåŒºåŸŸçš„é¢ç§¯
 function countEachArea(areaPoints)
 {
     var areaBorder = findAreaBorder(areaPoints);
@@ -130,7 +129,7 @@ function countEachArea(areaPoints)
     var areaLable = new Array(corArea, (minX + maxX)/2, (minY + maxY)/2);
     return areaLable;
 }
-//¼ÆËãËùÓĞÇøÓòµÄÃæ»ı£¬²¢´æÈëÊı×é
+//è®¡ç®—æ‰€æœ‰åŒºåŸŸçš„é¢ç§¯ï¼Œå¹¶å­˜å…¥æ•°ç»„
 function countArea(mapDraw)
 {
     var areas = new Array();
@@ -139,29 +138,29 @@ function countArea(mapDraw)
     areas[0] = mapDraw[0];
     return areas;
 }
-//½øĞĞÄ«¿¨ÍĞÍ¶Ó°·´Ëã
+//è¿›è¡Œå¢¨å¡æ‰˜æŠ•å½±åç®—
 function antiMecProjectArith(mapDraw)
 {
-    //Í¶Ó°×ª»»Ëã·¨
+    //æŠ•å½±è½¬æ¢ç®—æ³•
     function antiMecProjectArith(x, y, B0, L0, a, b, e2, e_2)
     {
-        //ÉèÖÃÒÑÖª³£Êı
+        //è®¾ç½®å·²çŸ¥å¸¸æ•°
         var E = Math.E, PI = Math.PI;
         var e = Math.sqrt(e2), e_ = Math.sqrt(e_2);
-        //ÇóËã±äÁ¿
+        //æ±‚ç®—å˜é‡
         var NB0 = ((a*a) / b) / Math.sqrt(1 + e_2 * Math.cos(B0)*Math.cos(B0));
         var K = NB0 * Math.cos(B0);
-        //ÇóËã¾­Î³¶È×ø±ê
+        //æ±‚ç®—ç»çº¬åº¦åæ ‡
         var L = y/K + L0;
         var B = 0;
-        //µü´úÊ®´Î»ñµÃBÊıÖµ
+        //è¿­ä»£åæ¬¡è·å¾—Bæ•°å€¼
         for ( var i = 0; i < 10; i++)
             B = PI/2 - 2*Math.atan(Math.pow(E, (-x/K)) * Math.pow(E, (e/2)*Math.log((1-e*Math.sin(B)) / (1+e*Math.sin(B)))));
         
         var LB = new Array(Ra2An(L), Ra2An(B));
         return LB;
     }
-    //Í¨¹ı¹«Ê½±ä»»ËùÓĞµã×ø±êµÄÖµ
+    //é€šè¿‡å…¬å¼å˜æ¢æ‰€æœ‰ç‚¹åæ ‡çš„å€¼
     var GC = gCoor84Cal(gCoordinates84);
     for (var i = 1; i <= mapDraw[0]; i++)
     {
@@ -171,13 +170,13 @@ function antiMecProjectArith(mapDraw)
     }
     return mapDraw;
 }
-//ÕÒµ½µØÍ¼»æÖÆµÄ±ß½ç
+//æ‰¾åˆ°åœ°å›¾ç»˜åˆ¶çš„è¾¹ç•Œ
 function findBorder(mapArray)
 {
-    //ÉèÖÃºáÊúÖá×î´ó×îĞ¡±êÖ¾£¬ÒÔÄ«¿¨ÍĞÍ¶Ó°µÄ×î´ó×îĞ¡ÖµÎª±êÖ¾
+    //è®¾ç½®æ¨ªç«–è½´æœ€å¤§æœ€å°æ ‡å¿—ï¼Œä»¥å¢¨å¡æ‰˜æŠ•å½±çš„æœ€å¤§æœ€å°å€¼ä¸ºæ ‡å¿—
     var maxX = -20100000, maxY = -20100000, minX = 20100000, minY = 20100000; 
-    var lineNum = mapArray.length, pointNum;        //µØÍ¼×ÜÏß¶ÎÊıÄ¿£¬Ò»ÌõÏß¶ÎµãÊı
-    var corX, corY;             //µ±Ç°X£¬Y
+    var lineNum = mapArray.length, pointNum;        //åœ°å›¾æ€»çº¿æ®µæ•°ç›®ï¼Œä¸€æ¡çº¿æ®µç‚¹æ•°
+    var corX, corY;             //å½“å‰Xï¼ŒY
     for (var i = 1; i < lineNum; i++)
     {
         lineArray = mapArray[i]
@@ -194,16 +193,16 @@ function findBorder(mapArray)
     var borderArray = new Array(minX, maxX, minY, maxY);
     return borderArray;
 }
-//¼ÓÈëÍø¸ñ²¢½øĞĞÍ¶Ó°·´Ëã
+//åŠ å…¥ç½‘æ ¼å¹¶è¿›è¡ŒæŠ•å½±åç®—
 function completeMap(mapArray)
 {
-    var mapDraw = new Array();      //´æ´¢ĞèÒª»æÖÆµÄÍ¼ĞÎÊı¾İ£¬È«²¿ÒÔµãµÄĞÎÊ½´æ´¢
-    //´æ´¢µØÍ¼Êı¾İ
+    var mapDraw = new Array();      //å­˜å‚¨éœ€è¦ç»˜åˆ¶çš„å›¾å½¢æ•°æ®ï¼Œå…¨éƒ¨ä»¥ç‚¹çš„å½¢å¼å­˜å‚¨
+    //å­˜å‚¨åœ°å›¾æ•°æ®
     for (var i = 1; i <= mapArray[0]; i++)  mapDraw[i] = mapArray[i].slice();
-    //¼ÇÂ¼µØÍ¼Ïß¶ÎÊı
+    //è®°å½•åœ°å›¾çº¿æ®µæ•°
     mapDraw[0] = mapArray[0]; 
 
-    //½øĞĞÄ«¿¨ÍĞÍ¶Ó°·´Ëã£¬²¢¼ÆËãÃæ»ı
+    //è¿›è¡Œå¢¨å¡æ‰˜æŠ•å½±åç®—ï¼Œå¹¶è®¡ç®—é¢ç§¯
     if (projectSign)    
     {
         mapDraw = antiMecProjectArith(mapDraw);
@@ -212,11 +211,11 @@ function completeMap(mapArray)
     
     return mapDraw;
 }
-//ÔÚÍøÒ³ÉÏ»æÖÆµØÍ¼
+//åœ¨ç½‘é¡µä¸Šç»˜åˆ¶åœ°å›¾
 function drawMap(mapArray)
 {
     var rawDrawPoints = completeMap(mapArray);
-    //»ñµÃ»­²¼µÄ³¤¿í¶¨±ê
+    //è·å¾—ç”»å¸ƒçš„é•¿å®½å®šæ ‡
     var mapDrawBorder = findBorder(rawDrawPoints);
     var W2HRatio = (mapDrawBorder[1] - mapDrawBorder[0]) / (mapDrawBorder[3] - mapDrawBorder[2]);
     var interval, minX = mapDrawBorder[0], maxX = mapDrawBorder[1], minY = mapDrawBorder[2] ,maxY = mapDrawBorder[3];
@@ -228,7 +227,7 @@ function drawMap(mapArray)
     var mapWidth = interval * (mapDrawBorder[1] - mapDrawBorder[0]) + startInter*2;
     var mapHeight = interval * (mapDrawBorder[3] - mapDrawBorder[2]) + startInter*2;
 
-    //ÉèÖÃ»­²¼³¤¿í
+    //è®¾ç½®ç”»å¸ƒé•¿å®½
     var mapDrawDiv = document.createElement("canvasDiv");
     mapDrawDiv.style.height = mapHeight + "px";
     mapDrawDiv.style.width = mapWidth + "px";
@@ -242,11 +241,11 @@ function drawMap(mapArray)
     myCanvas.width = mapWidth;
     myCanvas.height = mapHeight;
 
-    //»æÖÆ
+    //ç»˜åˆ¶
     var drawCanvas = myCanvas.getContext("2d");
-    //»æÖÆµØÍ¼
-    drawCanvas.lineWidth = 1.3;                           //ÉèÖÃÏß¿í
-    drawCanvas.strokeStyle = "black";                    //ÉèÖÃÏßÉ«
+    //ç»˜åˆ¶åœ°å›¾
+    drawCanvas.lineWidth = 1.3;                           //è®¾ç½®çº¿å®½
+    drawCanvas.strokeStyle = "black";                    //è®¾ç½®çº¿è‰²
     for (var i = 1; i <= rawDrawPoints[0]; i++)
     {
         var lineList = rawDrawPoints[i];
@@ -254,13 +253,13 @@ function drawMap(mapArray)
         drawCanvas.moveTo((lineList[0][0] - minX) * interval + startInter, (maxY - lineList[0][1]) * interval + startInter);
         for (var j = 1; j < lineList.length; j++)
             drawCanvas.lineTo((lineList[j][0]- minX) * interval + startInter, (maxY - lineList[j][1]) * interval + startInter);
-        drawCanvas.stroke();                                //»æÖÆÏßÌõ
+        drawCanvas.stroke();                                //ç»˜åˆ¶çº¿æ¡
     }
     if (projectSign == 0)   return;
 
-    //»æÖÆµØÍ¼±ß¿ò
-    drawCanvas.lineWidth = 2;                           //ÉèÖÃÏß¿í
-    drawCanvas.strokeStyle = "gray";                    //ÉèÖÃÏßÉ«
+    //ç»˜åˆ¶åœ°å›¾è¾¹æ¡†
+    drawCanvas.lineWidth = 2;                           //è®¾ç½®çº¿å®½
+    drawCanvas.strokeStyle = "gray";                    //è®¾ç½®çº¿è‰²
     drawCanvas.beginPath();
     drawCanvas.moveTo((minX - minX) * interval + startInter, (maxY - minY) * interval + startInter);
     drawCanvas.lineTo((maxX - minX) * interval + startInter, (maxY - minY) * interval + startInter);            drawCanvas.lineTo((maxX - minX) * interval + startInter, (maxY - minY) * interval + startInter);
@@ -269,15 +268,15 @@ function drawMap(mapArray)
     drawCanvas.lineTo((minX - minX) * interval + startInter, (maxY - minY) * interval + startInter);
     drawCanvas.stroke()
     
-    //µØÍ¼·¶Î§Êı×Ö
-    drawCanvas.strokeStyle = "black";                    //ÉèÖÃ×ÖÉ«
-    drawCanvas.font = "20px ºÚÌå";
+    //åœ°å›¾èŒƒå›´æ•°å­—
+    drawCanvas.strokeStyle = "black";                    //è®¾ç½®å­—è‰²
+    drawCanvas.font = "20px é»‘ä½“";
     drawCanvas.fillText(minY.toFixed(2),(maxX - minX) * interval + startInter, (maxY - minY) * interval + startInter);
     drawCanvas.fillText(maxY.toFixed(2),(maxX - minX) * interval + startInter, (maxY - maxY) * interval + startInter + 20);
     drawCanvas.fillText(minX.toFixed(2),(minX - minX) * interval + startInter, (maxY - minY) * interval + startInter + 20);
     drawCanvas.fillText(maxX.toFixed(2),(maxX - minX) * interval , (maxY - minY) * interval + startInter + 20);
 
-    //±ê×¢Ãæ»ı£¬²¢¸ßÁÁ¸ÃÇøÓò
+    //æ ‡æ³¨é¢ç§¯ï¼Œå¹¶é«˜äº®è¯¥åŒºåŸŸ
     if (areaNum != null)
     {
         drawCanvas.fillStyle = "grey";
@@ -286,17 +285,17 @@ function drawMap(mapArray)
         drawCanvas.moveTo((lineList[0][0] - minX) * interval + startInter, (maxY - lineList[0][1]) * interval + startInter);
         for (var j = 1; j < lineList.length; j++)
             drawCanvas.lineTo((lineList[j][0]- minX) * interval + startInter, (maxY - lineList[j][1]) * interval + startInter);
-        drawCanvas.fill();                                //»æÖÆÏßÌõ
-        drawCanvas.font = "15px ºÚÌå";
+        drawCanvas.fill();                                //ç»˜åˆ¶çº¿æ¡
+        drawCanvas.font = "15px é»‘ä½“";
         drawCanvas.fillStyle = "black";
         drawCanvas.fillText(areaList[areaNum][0].toFixed(2),(areaList[areaNum][1] - minX) * interval + startInter, (maxY - areaList[areaNum][2]) * interval + startInter);
     }
     
    
     /*
-    //ÅĞ¶ÏÃ¿Ò»ÏßÌõËù´ú±íµÄÊĞ¼¶µ¥Î»
-    drawCanvas.lineWidth = 3;                           //ÉèÖÃÏß¿í
-    drawCanvas.strokeStyle = "blue";                    //ÉèÖÃÏßÉ«
+    //åˆ¤æ–­æ¯ä¸€çº¿æ¡æ‰€ä»£è¡¨çš„å¸‚çº§å•ä½
+    drawCanvas.lineWidth = 3;                           //è®¾ç½®çº¿å®½
+    drawCanvas.strokeStyle = "blue";                    //è®¾ç½®çº¿è‰²
     for (var i = 9; i <= 9; i++)
     {
         var lineList = rawDrawPoints[i];
@@ -304,78 +303,78 @@ function drawMap(mapArray)
         drawCanvas.moveTo((lineList[0][0] - minX) * interval + startInter, (maxY - lineList[0][1]) * interval + startInter);
         for (var j = 1; j < lineList.length; j++)
             drawCanvas.lineTo((lineList[j][0]- minX) * interval + startInter, (maxY - lineList[j][1]) * interval + startInter);
-        drawCanvas.stroke();                                //»æÖÆÏßÌõ
+        drawCanvas.stroke();                                //ç»˜åˆ¶çº¿æ¡
     }
     */
 
     return;
 }
-//Ñ¡ÖĞÁËÄ³Ò»¸öÇøÓò
+//é€‰ä¸­äº†æŸä¸€ä¸ªåŒºåŸŸ
 function setArea()
 {
-    var obj = document.getElementById("selectE"); //¶¨Î»id
-    areaNum = obj.options[obj.selectedIndex].value; //Ñ¡ÖĞµØÇøµÄ±àºÅ
-    //¶Ô»­²¼½øĞĞÖØ»æ
+    var obj = document.getElementById("selectE"); //å®šä½id
+    areaNum = obj.options[obj.selectedIndex].value; //é€‰ä¸­åœ°åŒºçš„ç¼–å·
+    //å¯¹ç”»å¸ƒè¿›è¡Œé‡ç»˜
     var canvas = document.getElementById("mapDrawing");
     canvas.parentNode.removeChild(canvas);
     drawMap(myMap);
 }
-//½«¶ÁÈ¡µÄ×Ö·û´®×ª»»ÎªÊı×éĞÎÊ½£¬²¢ÒÔÒ»¶¨¸ñÊ½´æÈëÊı×é
+//å°†è¯»å–çš„å­—ç¬¦ä¸²è½¬æ¢ä¸ºæ•°ç»„å½¢å¼ï¼Œå¹¶ä»¥ä¸€å®šæ ¼å¼å­˜å…¥æ•°ç»„
 function mapStr2mapXY(mapStr)
 {
-    var lineNum = 1;        //¼ÇÂ¼ÒÑ¾­¶ÁÈ¡ĞĞÊı
-    var pointNum = 0;       //¼ÇÂ¼µ±Ç°ÏßµãÊı
+    var lineNum = 1;        //è®°å½•å·²ç»è¯»å–è¡Œæ•°
+    var pointNum = 0;       //è®°å½•å½“å‰çº¿ç‚¹æ•°
     var mapXY = new Array();  
-    var strs = mapStr.split("\n");     //ÉèÖÃ·Ö¸î
+    var strs = mapStr.split("\n");     //è®¾ç½®åˆ†å‰²
     for (var i = 0; i <= strs.length ;i++)
     {
-        if( i == 0)   //ÎªµÚÒ»ÌõÏßÔö¼Ó´æ´¢¿Õ¼ä
+        if( i == 0)   //ä¸ºç¬¬ä¸€æ¡çº¿å¢åŠ å­˜å‚¨ç©ºé—´
         {
             mapXY[lineNum] = new Array();
             i++;
         }
         if(strs[i].indexOf("END") >= 0)
         {
-            if(strs[i+1].indexOf("END") >= 0)    //ÎÄ¼ş½áÊø
+            if(strs[i+1].indexOf("END") >= 0)    //æ–‡ä»¶ç»“æŸ
             {
                 mapXY[0] = lineNum;
                 return mapXY;
             }
-            else                                //µ±Ç°Ïß¶Î½áÊø
+            else                                //å½“å‰çº¿æ®µç»“æŸ
             {
-                mapXY[++lineNum] = new Array(); //ÎªÏÂÒ»ÌõÏß·ÖÅä¿Õ¼ä
+                mapXY[++lineNum] = new Array(); //ä¸ºä¸‹ä¸€æ¡çº¿åˆ†é…ç©ºé—´
                 i += 2;
                 pointNum = 0;
             }
         }
-        //½«¸Ãµã¼ÇÂ¼½øÈëÊı×é
+        //å°†è¯¥ç‚¹è®°å½•è¿›å…¥æ•°ç»„
         var XY = strs[i].split(',');
-        mapXY[lineNum][pointNum] = new Array(2);       //·ÖÅä´æ´¢¿Õ¼ä
+        mapXY[lineNum][pointNum] = new Array(2);       //åˆ†é…å­˜å‚¨ç©ºé—´
         mapXY[lineNum][pointNum][0] = parseFloat(XY[0]);
         mapXY[lineNum][pointNum++][1] = parseFloat(XY[1]);
     }//for
     return;
 }
-//¶ÁÈ¡µØÍ¼ÎÄ¼ş
+//è¯»å–åœ°å›¾æ–‡ä»¶
 function readMapFile()
 {  
-    var mapFile = document.getElementById("openMapFile").files[0];  //»ñÈ¡ÎÄ¼ş
+    var mapFile = document.getElementById("openMapFile").files[0];  //è·å–æ–‡ä»¶
     var reader = new FileReader();  
     reader.readAsText(mapFile);  
     reader.onload = function(e)
     {
-        myMap = mapStr2mapXY(this.result)   //½«¶ÁÈ¡µÄ×Ö·û´®×ªÎªÊı×Ö
+        myMap = mapStr2mapXY(this.result)   //å°†è¯»å–çš„å­—ç¬¦ä¸²è½¬ä¸ºæ•°å­—
         //document.write(myMap);
-        drawMap(myMap);     //»æÖÆÔ­Ê¼µØÍ¼
+        drawMap(myMap);     //ç»˜åˆ¶åŸå§‹åœ°å›¾
     }     
     return;
 }
-//¸Ä±äÍ¶Ó°±êÖ¾£¬²¢ÖØĞÂ»æÖÆµØÍ¼
+//æ”¹å˜æŠ•å½±æ ‡å¿—ï¼Œå¹¶é‡æ–°ç»˜åˆ¶åœ°å›¾
 function setProjectSign()
 {
     if(projectSign == 0)
     {
-        //´´½¨Ò»¸öÏÂÀ­Ñ¡È¡¿ò
+        //åˆ›å»ºä¸€ä¸ªä¸‹æ‹‰é€‰å–æ¡†
         var selectE = document.getElementById("selectE");
         selectE.style.display = "";
         for(var i = 0; i< areaCode.length; i++)
@@ -383,7 +382,7 @@ function setProjectSign()
                 selectE.options.add (new Option(areaCode[i], String(i)));
     }
     projectSign += 1;
-    drawMap(myMap);     //¸ù¾İ¹æ¶¨µÄÍ¶Ó°»æÖÆµØÍ¼
+    drawMap(myMap);     //æ ¹æ®è§„å®šçš„æŠ•å½±ç»˜åˆ¶åœ°å›¾
     return;
         
 }
