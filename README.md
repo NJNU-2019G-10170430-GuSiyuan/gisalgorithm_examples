@@ -3,7 +3,7 @@ GIS算法基础课程例程
 -
 2019 NJNU 10170430顾思缘
 ### ` Week 1 ` 
-[跳马算法](https://github.com/NJNU-2019G-10170430-GuSiyuan/gisalgorithm_examples/blob/master/Jump.html"悬停显示")  
+[跳马算法](Jump.html"悬停显示")  
 [最佳工作序列](https://github.com/NJNU-2019G-10170430-GuSiyuan/gisalgorithm_examples/blob/master/%E6%9C%80%E4%BD%B3%E5%B7%A5%E4%BD%9C%E5%BA%8F%E5%88%97.html"悬停显示") 
 ### ` Week 2 ` 
 [空间对象几何特征编码](https://github.com/NJNU-2019G-10170430-GuSiyuan/gisalgorithm_examples/blob/master/%E5%90%8D%E5%AD%97%E5%8F%98%E6%8D%A2Version2.html"悬停显示")  
