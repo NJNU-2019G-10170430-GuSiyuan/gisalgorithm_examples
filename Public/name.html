@@ -1,88 +1,90 @@
-<html>  
-    <head>  
-        <title>Ãû³Æ±àÂë</title>  
-    </head>  
-	<span style="color:black;font-size:20px;font-family:ºÚÌå">10170430 ¹ËË¼Ôµ</span>
-        <body>             
-            <input id="fileInput" type="file" onchange="processFiles()"/>
-            <br>
-            <canvas id="myCanvas" width="1000" height="600" style="border:1px solid #c3c3c3">your browser does not support the canvas tag </canvas>   
-            <script>  
-                function processFiles(){
-                    var file=document.getElementById("fileInput").files[0];
-                    var reader=new FileReader();
-                    reader.readAsText(file);
-                    reader.onload=function(e)
-                    {
-                        var str = this.result;//¶ÁÈ¡ÎÄ±¾
-                        var number = new Array();
-                        number= digitalExtraction(str,number);//ÌáÈ¡Êı×Ö²¢´æÈëÊı×é
-                        draw(number);//»­Í¼
-                    }
-                    
-                }
-                //ÌáÈ¡Êı×Ö£¬²¢´æÈëÊı×é
-               function digitalExtraction(str,number){
-                    var heap= str.replace(/[^0-9.L]/ig,"A");
-                    var numcharacter="";//´æ´¢Êı×Ö×Ö·û
-                    var number =new Array();//ÌáÈ¡Êı×ÖÊı×é
-                    var i=0;
-                    var flag=0;//heap×Ö·û´®µ±Ç°±ê¼Ç
-                    var n=0;//±êÊ¶Êı×ÖÓë×Ö·û×ª»»Î»ÖÃ
-                    var character=heap[flag];//»ñÈ¡×Ö·û´®µÄÒ»¸ö×Ö·û
-                   // document.write(heap);
-                    while(character!=null){
-                        if(character=="L"){
-                             number[i++]=-1;
-                             flag+=2;
-                             character=heap[flag];
-                         }
-                        if(character!="A"){
-                            n=1;
-                            numcharacter+=character;
-                          }
-                        else{
-                            if(n){
-                                number[i++]=parseFloat(numcharacter);
-                                numcharacter="";
-                                n=0;
-                            }
-                        }
-                         character=heap[++flag];
-                    }
-                   
-                    return number;
-               }
-               function draw(number){
-                    var canvas=document.getElementById('myCanvas');
-                    
-                    var cxt=canvas.getContext('2d'); 
-                    var n= number.length;
-                    number[n]=-1;
-                    var n= number.length;
- 
-                   var flag=0;
-                   var x= new Array();
-                   var y =new Array();
-                   var j=0;
-                    for(var i=1,j=0;i<n;i++){
-                        if(number[i]!=-1){
-                            x[j]=number[i]*10;
-                            y[j]=number[++i]*10;
-                            j++;
-                        }else{
-                            cxt.moveTo(x[0],y[0]);
-                            for(var k=1;k<j;k++){
-                                cxt.lineTo(x[k],y[k]);
-                            }
-                            cxt.stroke();
-                            j=0;
-                        }
-                    }
-                    
- 
-               }
-            
-            </script>   
-        </body>  
-</html> 
+<html>    
+    <head>    
+        <title>åç§°ç¼–ç </title>    
+    </head>    
+        <body>
+	    <span style="color:black;font-size:20px;font-family:é»‘ä½“">10170430 é¡¾æ€ç¼˜</span>
+            <input id="fileInput" type="file" onchange="processFiles()"/>  
+            <br>  
+            <canvas id="myCanvas" width="1000" height="600" style="border:1px solid #c3c3c3">your browser does not support the canvas tag </canvas>  
+              
+            <script>    
+                function processFiles(){  
+                    var file=document.getElementById("fileInput").files[0];  
+                    var reader=new FileReader();  
+                    reader.readAsText(file);  
+                    reader.onload=function(e)  
+                    {  
+                        var str = this.result;//è¯»å–æ–‡æœ¬  
+                        var number = new Array();  
+                        number= digitalExtraction(str,number);//æå–æ•°å­—å¹¶å­˜å…¥æ•°ç»„  
+                        draw(number);//ç”»å›¾  
+                    }  
+                      
+                }  
+                //æå–æ•°å­—ï¼Œå¹¶å­˜å…¥æ•°ç»„  
+               function digitalExtraction(str,number){  
+                    var heap= str.replace(/[^0-9.L]/ig,"A");  
+  
+                    var numcharacter="";//å­˜å‚¨æ•°å­—å­—ç¬¦  
+                    var number =new Array();//æå–æ•°å­—æ•°ç»„  
+                    var i=0;  
+                    var flag=0;//heapå­—ç¬¦ä¸²å½“å‰æ ‡è®°  
+                    var n=0;//æ ‡è¯†æ•°å­—ä¸å­—ç¬¦è½¬æ¢ä½ç½®  
+                    var character=heap[flag];//è·å–å­—ç¬¦ä¸²çš„ä¸€ä¸ªå­—ç¬¦  
+                   // document.write(heap);  
+                    while(character!=null){  
+                        if(character=="L"){  
+                             number[i++]=-1;  
+                             flag+=2;  
+                             character=heap[flag];  
+                         }  
+                        if(character!="A"){  
+                            n=1;  
+                            numcharacter+=character;  
+                          }  
+                        else{  
+                            if(n){  
+                                number[i++]=parseFloat(numcharacter);  
+                                numcharacter="";  
+                                n=0;  
+                            }  
+                        }  
+                         character=heap[++flag];  
+                    }  
+                     
+                    return number;  
+               }  
+               function draw(number){  
+                    var canvas=document.getElementById('myCanvas');  
+                      
+                    var cxt=canvas.getContext('2d');   
+                    var n= number.length;  
+                    number[n]=-1;  
+                    var n= number.length;  
+  
+                   var flag=0;  
+                   var x= new Array();  
+                   var y =new Array();  
+                   var j=0;  
+                    for(var i=1,j=0;i<n;i++){  
+                        if(number[i]!=-1){  
+                            x[j]=number[i]*10;  
+                            y[j]=number[++i]*10;  
+                            j++;  
+                        }else{  
+                            cxt.moveTo(x[0],y[0]);  
+                            for(var k=1;k<j;k++){  
+                                cxt.lineTo(x[k],y[k]);  
+                            }  
+                            cxt.stroke();  
+                            j=0;  
+                        }  
+                    }  
+                      
+  
+               }  
+              
+            </script>     
+        </body>    
+</html>
