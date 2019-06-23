@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>×ó×ªËã·¨</title>
+    <title>å·¦è½¬ç®—æ³•</title>
     <meta http-equiv="Content-Type" content="text/html; charset=Unicode32" />
     <style>
         .result {
@@ -19,12 +19,12 @@
 </head>
 
 <body>
-    <a>Ñ¡ÔñÊäÈëÎÄ¼ş£º</a><input type="file" id="file" style="width: 200px;" />
-    <button onclick="Read()">È·¶¨</button>
+    <a>é€‰æ‹©è¾“å…¥æ–‡ä»¶ï¼š</a><input type="file" id="file" style="width: 200px;" />
+    <button onclick="Read()">ç¡®å®š</button>
     <br>
     <canvas id="map" style="border:1px solid #000;margin-top:10px;float:left"></canvas>
     <div class="result" id="result">
-        <b>½á¹û</b>
+        <b>ç»“æœ</b>
         <br>
     </div>
     <script>
@@ -32,7 +32,7 @@
         var ctx = canvas.getContext('2d');
         canvas.width = 300;
         canvas.height = 300;
-        //»¡¶ÎidÓëÆğµã¡¢ÖÕµã¡¢ÖĞ¼äµã
+        //å¼§æ®µidä¸èµ·ç‚¹ã€ç»ˆç‚¹ã€ä¸­é—´ç‚¹
         var polylines = [];
         var points = [];
         var polygon = [];
@@ -51,14 +51,14 @@
         }
         function ShowResult() {
             for (var i = 0; i < polygon.length; i++) {
-                document.getElementById('result').innerHTML += "Ãæ" + (i + 1) + "£º";
+                document.getElementById('result').innerHTML += "é¢" + (i + 1) + "ï¼š";
                 for (var j = 0; j < polygon[i].length; j++) {
                     document.getElementById('result').innerHTML += polygon[i][j].id + " , ";
                 }
                 document.getElementById('result').innerHTML += "<br>";
             }
         }
-        //ÅĞ¶ÏarrayÖĞÊÇ·ñÓĞpoint
+        //åˆ¤æ–­arrayä¸­æ˜¯å¦æœ‰point
         function CheckIn(array, point) {
             for (var i = 0; i < array.length; i++) {
                 if (array[i][0] == point[0] && array[i][1] == point[1]) {
@@ -104,7 +104,7 @@
             }
             return [minline, lines.length];
         }
-        //ÕÒµ½line×ó±ß¼Ğ½Ç×î½üµÄÏß
+        //æ‰¾åˆ°lineå·¦è¾¹å¤¹è§’æœ€è¿‘çš„çº¿
         function LeftMinAngle(line) {
             var lines = [];
             for (var i = 0; i < polylines.length; i++) {
@@ -274,11 +274,11 @@
                 }
             }
         }
-        //Çå¿Õ»­²¼
+        //æ¸…ç©ºç”»å¸ƒ
         function ClearCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
     </script>
 </body>
 
-</html>
+</html>
