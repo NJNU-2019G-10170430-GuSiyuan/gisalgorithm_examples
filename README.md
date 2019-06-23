@@ -3,7 +3,7 @@ GIS算法基础课程例程
 ====
 #算法<br>
 [跳马问题](https://njnu-2019g-10170430-gusiyuan.github.io/myapp/Public/Jump.html)
-[最佳工作序列]((https://njnu-2019g-10170430-gusiyuan.github.io/myapp/Public/bestwork.html)
+[最佳工作序列](https://njnu-2019g-10170430-gusiyuan.github.io/myapp/Public/bestwork.html)
 <br>
 
 #空间坐标<br>
