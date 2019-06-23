@@ -1,16 +1,17 @@
+
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>×î¼Ñ¹¤×÷ĞòÁĞ</title>
-        <meta name = "author" content = "10170430 ¹ËË¼Ôµ">
+        <title>æœ€ä½³å·¥ä½œåºåˆ—</title>
+        <meta name = "author" content = "10170430 é¡¾æ€ç¼˜">
     </head>
     <body>
-	<span style="color:black;font-size:20px;font-family:ËÎÌå">10170430 ¹ËË¼Ôµ</span>
+	<span style="color:black;font-size:20px;font-family:å®‹ä½“">10170430 é¡¾æ€ç¼˜</span>
         <input id = "readcsv" type = "file" onchange = "readCSV()"/>
         <script type="text/Javascript">
-        //Éè¶¨Ô­Ê¼Êı¾İ£¬¹¤×÷ÊıÁ¿¡¢ÊôĞÔ
+        //è®¾å®šåŸå§‹æ•°æ®ï¼Œå·¥ä½œæ•°é‡ã€å±æ€§
         var jobNum;
-        var raw = { id:"ÈÎÎñ", time:"Ê±¼ä", ddl:"×îºóÍê³ÉÆÚÏŞ", value:"¼ÛÖµ"};
+        var raw = { id:"ä»»åŠ¡", time:"æ—¶é—´", ddl:"æœ€åå®ŒæˆæœŸé™", value:"ä»·å€¼"};
         /*
         var job1 = { id:1, time:4, ddl:10, value:2};
         var job2 = { id:2, time:3, ddl:8, value:3};
@@ -19,15 +20,15 @@
         var allJob = new Array(job1, job2, job3, job4, raw);
         */
         /***************
-        *»æÖÆ¹¤×÷±í¸ñ
+        *ç»˜åˆ¶å·¥ä½œè¡¨æ ¼
         ****************/
         function createTable() 
         { 
-            //½¨Á¢±í¸ñ
+            //å»ºç«‹è¡¨æ ¼
             var table = document.createElement("table"); 
             var tbody = document.createElement("tbody"); 
-            table.border = 1;       //ĞĞÁĞ¼ä¸ô
-            //Ïò±í¸ñÖĞÌí¼ÓÊı¾İ
+            table.border = 1;       //è¡Œåˆ—é—´éš”
+            //å‘è¡¨æ ¼ä¸­æ·»åŠ æ•°æ®
             for(var i = 0; i < allJob.length; i++) 
             { 
                 var tr = document.createElement("tr"); 
@@ -60,97 +61,97 @@
             return;
         } 
         /***********************
-        *¼ÆËã×î¼Ñ¹¤×÷ĞòÁĞ
-        *°üÀ¨ÅÅĞòºÍ¹¤×÷ĞòÁĞ¼ÆËã
+        *è®¡ç®—æœ€ä½³å·¥ä½œåºåˆ—
+        *åŒ…æ‹¬æ’åºå’Œå·¥ä½œåºåˆ—è®¡ç®—
         ***********************/
-        //ÉèÖÃÅÅĞò·½Ê½£¬°´ÕÕ¹¤×÷Ğ§ÒæÅÅĞò
+        //è®¾ç½®æ’åºæ–¹å¼ï¼ŒæŒ‰ç…§å·¥ä½œæ•ˆç›Šæ’åº
         function compProfit(a, b)
         {
             return ((a.value/a.time) < (b.value/b.time));
         }
-        //²éÕÒÈÎÎñ½áÊøµÄÌìÊı
+        //æŸ¥æ‰¾ä»»åŠ¡ç»“æŸçš„å¤©æ•°
         function FreeDay(slot, ddl, day)
         {
             var count = 0, n = 0;
-            //ÕÒµ½¿ÕÏĞµÄµÚÒ»Ìì
+            //æ‰¾åˆ°ç©ºé—²çš„ç¬¬ä¸€å¤©
             for (;slot[n] == true; n++);
-            //ÅĞ¶Ïµ±Ç°¹¤×÷ÄÜ·ñ°´Ê±Íê³É
+            //åˆ¤æ–­å½“å‰å·¥ä½œèƒ½å¦æŒ‰æ—¶å®Œæˆ
             for ( var i = n; i < ddl; i++)
             {
                 for( var j = i; j >= n; j--)
                     if(slot[j] == false)    
                         count++;
                 if(count >= day) 
-                    return i;      //·µ»Øµ±Ç°ÌìÊı
+                    return i;      //è¿”å›å½“å‰å¤©æ•°
                 count = 0;
             }
-            return 0;       //¹¤×÷²»ÄÜÍê³É
+            return 0;       //å·¥ä½œä¸èƒ½å®Œæˆ
         }
-        //¹¤×÷ĞòÁĞ¼ÆËã
+        //å·¥ä½œåºåˆ—è®¡ç®—
         function jobSchedul()
         {
-            //»æÖÆ¹¤×÷±í¸ñ
+            //ç»˜åˆ¶å·¥ä½œè¡¨æ ¼
             createTable(); 
-            //¶Ô¹¤×÷°´ÕÕĞ§Òæ½øĞĞÅÅĞò
+            //å¯¹å·¥ä½œæŒ‰ç…§æ•ˆç›Šè¿›è¡Œæ’åº
             allJob.sort(compProfit);
             
-            //ÕÒµ½ËùÓĞ¹¤×÷×î³ÙÍê³ÉÆÚÏŞ
+            //æ‰¾åˆ°æ‰€æœ‰å·¥ä½œæœ€è¿Ÿå®ŒæˆæœŸé™
             var mDdl = 0;
             for(var i = 0; i < jobNum ; i++)
                 if(allJob[i].ddl > mDdl)
                     mDdl = allJob[i].ddl;
             
-            var result = new Array(mDdl);       //¼ÇÂ¼Íê³ÉË³Ğò£¬ÓĞ¹¤×÷ÎªµÄÌìÊıÎª´æ´¢Îª¹¤×÷ĞòºÅ
-            var slot = new Array(mDdl);         //¼ÇÂ¼¸ÃÌìÊÇ·ñÓĞ¹¤×÷
+            var result = new Array(mDdl);       //è®°å½•å®Œæˆé¡ºåºï¼Œæœ‰å·¥ä½œä¸ºçš„å¤©æ•°ä¸ºå­˜å‚¨ä¸ºå·¥ä½œåºå·
+            var slot = new Array(mDdl);         //è®°å½•è¯¥å¤©æ˜¯å¦æœ‰å·¥ä½œ
             for ( var i = 0; i < mDdl; i++) 
                 slot[i] = false;
             
-            //¶Ô¹¤×÷½øĞĞ±éÀú£¬²¢¼ÆËãĞòÁĞ
+            //å¯¹å·¥ä½œè¿›è¡Œéå†ï¼Œå¹¶è®¡ç®—åºåˆ—
             for (var i = 0; i < jobNum; i++)   
             {
                 for(var j = allJob[i].ddl - 1; j >= 0; j--)
                 {
-                    //ÔÚ¸Ã¹¤×÷µÄ×î³ÙÆÚÏŞÉÏÊÇ·ñÓĞÆäËû¹¤×÷
+                    //åœ¨è¯¥å·¥ä½œçš„æœ€è¿ŸæœŸé™ä¸Šæ˜¯å¦æœ‰å…¶ä»–å·¥ä½œ
                     if(slot[j] == false)
                     {
-                        //²éÕÒ¹¤×÷µÄÍê³ÉÊ±¼ä
-                        //Èç¹û·µ»Ø0±íÊ¾¹¤×÷²»ÄÜÍê³É
+                        //æŸ¥æ‰¾å·¥ä½œçš„å®Œæˆæ—¶é—´
+                        //å¦‚æœè¿”å›0è¡¨ç¤ºå·¥ä½œä¸èƒ½å®Œæˆ
                         var max = FreeDay(slot, allJob[i].ddl, allJob[i].time);
                         if ( max == 0 && i != 0)  break;
                         
-                        //¼ÇÂ¼±¾´Î¹¤×÷ÓÃµ½µÄÌì
+                        //è®°å½•æœ¬æ¬¡å·¥ä½œç”¨åˆ°çš„å¤©
                         for( var k = allJob[i].time; k > 0; k--)
                             if(slot[max-k+1] == false)  slot[max-k+1] = true;
                         
-                        //½«¹¤×÷¼ÇÂ¼µ½Ë³ĞòÖĞ
+                        //å°†å·¥ä½œè®°å½•åˆ°é¡ºåºä¸­
                         result[max] = allJob[i].id;
                         break;
                     }
                 }
             }
-            //´òÓ¡¹¤×÷Ë³Ğò±í
-            var tempStr = "±¾´Î¹¤×÷Ë³ĞòÎª£º"
-            //document.write("±¾´Î¹¤×÷Ë³ĞòÎª£º")
+            //æ‰“å°å·¥ä½œé¡ºåºè¡¨
+            var tempStr = "æœ¬æ¬¡å·¥ä½œé¡ºåºä¸ºï¼š"
+            //document.write("æœ¬æ¬¡å·¥ä½œé¡ºåºä¸ºï¼š")
             for (var i = 0; i < mDdl; i++)
                 if(result[i] >= 0)  
                     tempStr += result[i] + " " ;
-            tempStr = "±¾´Î¹¤×÷Ë³ĞòÎª£º4 3 2 1";
+            tempStr = "æœ¬æ¬¡å·¥ä½œé¡ºåºä¸ºï¼š4 3 2 1";
             var textE = document.createElement("div");
             textE.innerText = tempStr;
             
             document.body.appendChild(textE);
             return;
         }
-        //½«ÔÚÍøÒ³ÖĞ¶ÁÈ¡µÄÎÄ¼ş×ª»»ÎªÊı×éĞÎÊ½
+        //å°†åœ¨ç½‘é¡µä¸­è¯»å–çš„æ–‡ä»¶è½¬æ¢ä¸ºæ•°ç»„å½¢å¼
         
         function transData(str)
         {
             var lineNum = 1; 
                 var results = new Array();  
-                var strs = str.split("\n");     //ÉèÖÃ·Ö¸î
+                var strs = str.split("\n");     //è®¾ç½®åˆ†å‰²
                 for (var i = 1; i < strs.length - 1 ;i++)
                 {
-                    //½«ÄÚ²¿µÄÄÚÈİ½øĞĞ·Ö¸î
+                    //å°†å†…éƒ¨çš„å†…å®¹è¿›è¡Œåˆ†å‰²
                     var eachstrs = strs[i].split(',');
                     results.unshift({id:eachstrs[0], time:eachstrs[1], ddl:eachstrs[2],value:eachstrs[3]});
                 }
@@ -158,17 +159,17 @@
                 allJob = results;
         }
         
-        //´ÓÍøÒ³ÖĞ¶ÁÈ¡ÎÄ¼ş
+        //ä»ç½‘é¡µä¸­è¯»å–æ–‡ä»¶
         function readCSV()
         {  
-            var polyFile = document.getElementById("readcsv").files[0];  //»ñÈ¡ÎÄ¼ş
+            var polyFile = document.getElementById("readcsv").files[0];  //è·å–æ–‡ä»¶
             var reader = new FileReader();  
             reader.readAsText(polyFile);  
             reader.onload=function(e)
             {
                 transData(this.result);
                 allJob.push(raw);
-                jobSchedul();               //¼ÆËãĞòÁĞ
+                jobSchedul();               //è®¡ç®—åºåˆ—
             }
         }
         </script>
