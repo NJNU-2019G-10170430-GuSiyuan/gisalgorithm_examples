@@ -2,7 +2,7 @@
 GIS算法基础课程例程
 ====
 #算法<br>
-[跳马问题](https://NJNU-2019G-10170430-GuSiyuan.github.io/gisalogrithm_examples/public/Jump.html)
+[跳马问题](https://NJNU-2019G-10170430-GuSiyuan.github.io/gisalogrithm_examples/Public/Jump.html)
 [最佳工作序列](https://17373057170.github.io/myApp/public/%E6%9C%80%E4%BD%B3%E5%B7%A5%E4%BD%9C%E5%BA%8F%E5%88%97.html)
 <br>
 
