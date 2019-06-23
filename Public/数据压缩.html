@@ -2,10 +2,11 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Êı¾İÑ¹Ëõ</title>
-        <meta name = "author" content = "10170430 ¹ËË¼Ôµ"/>
+	<meta charset="UTF-8">
+        <title>æ•°æ®å‹ç¼©</title>
+        <meta name = "author" content = "10170430 é¡¾æ€ç¼˜"/>
         <style type = "text/css">
-        body{ margin:0; font-family:"ºÚÌå"; font-size:14px; background:#E9E9E9;}
+        body{ margin:0; font-family:"é»‘ä½“"; font-size:14px; background:#E9E9E9;}
         #container { margin:0 auto; margin-top:5px; width:1200px; padding:5px; background:#FFFFFF;}
         #header { margin-bottom:10px; background:rgb(187, 181, 181);}
         #conButton{visibility: hidden;}
@@ -17,26 +18,26 @@
             <div id = "header">
                 <input id = "openMapFile" type = "file" onchange = "readMapFile()"/>
                 <div id = "conButton">
-                    <input id = "comButton" type = "button" value = "Êı¾İÑ¹Ëõ" onclick = "onComSign()"/>
+                    <input id = "comButton" type = "button" value = "æ•°æ®å‹ç¼©" onclick = "onComSign()"/>
                 </div>
-                ÊäÈëÑ¹ËõÖµ<input type="text" id="yadata" onchange='setCom()'/>
+                è¾“å…¥å‹ç¼©å€¼<input type="text" id="yadata" onchange='setCom()'/>
                 <div id = "canvasDiv" class = "containCanvas">
                     <canvas id = "mapDrawing"/>
                 </div>
             </div>
         </div>            
         <script type = "text/Javascript">
-		/*È«¾Ö±äÁ¿*/
-var dataCom = 0;                                //Êı¾İÑ¹Ëõ±êÖ¾£¬1ÎªÊı¾İÑ¹Ëõ
-var myMap = new Array();                        //Ê×Î»¼ÇÂ¼µØÍ¼×ÜÏß¶ÎÊı  
-var rawMapDataSize = 0, newMapDataSize = 0;     //¼ÇÂ¼Êı¾İ´æ´¢´óĞ¡
-var comNum;                                     //Ñ¹ËõµÄ±ÈÀı
+		/*å…¨å±€å˜é‡*/
+var dataCom = 0;                                //æ•°æ®å‹ç¼©æ ‡å¿—ï¼Œ1ä¸ºæ•°æ®å‹ç¼©
+var myMap = new Array();                        //é¦–ä½è®°å½•åœ°å›¾æ€»çº¿æ®µæ•°  
+var rawMapDataSize = 0, newMapDataSize = 0;     //è®°å½•æ•°æ®å­˜å‚¨å¤§å°
+var comNum;                                     //å‹ç¼©çš„æ¯”ä¾‹
 
-//¼ÇÂ¼µØÍ¼ÖĞ´æ´¢µÄµãµÄÊıÁ¿£¬ÓÃÀ´±íÊ¾Êı¾İÁ¿
+//è®°å½•åœ°å›¾ä¸­å­˜å‚¨çš„ç‚¹çš„æ•°é‡ï¼Œç”¨æ¥è¡¨ç¤ºæ•°æ®é‡
 function calDataSize(mapArray)
 {
     var dataSize = 0;
-    //³ıÈ¥Íø¸ñµÄ´æ´¢Á¿£¬½ö¶ÔµØÍ¼µÄµã½øĞĞ¼ÆËã
+    //é™¤å»ç½‘æ ¼çš„å­˜å‚¨é‡ï¼Œä»…å¯¹åœ°å›¾çš„ç‚¹è¿›è¡Œè®¡ç®—
     for (var i = mapArray[0][1] + 1; i <= mapArray[0][0]; i++)
         dataSize += mapArray[i].length;
 
@@ -44,35 +45,35 @@ function calDataSize(mapArray)
 }
 
 /********************************************************************
-*Êı¾İÑ¹ËõËã·¨£¬ÀûÓÃµÀ¸ñÀ­Ë¹Ëã·¨¶ÔÃ¿ÌõÏß½øĞĞÊı¾İÑ¹Ëõ
-*°üÀ¨ËÄ¸öº¯Êı£¬·Ö±ğ½øĞĞ£º
-*¼ÆËãµãµ½ÏßµÄ¾àÀë¡¢²éÕÒ¾àÀëÖĞ×î´óÊıµÄÎ»ÖÃ¡¢¶ÔÏß½øĞĞÑ¹Ëõ¡¢¶ÔµØÍ¼½øĞĞÑ¹Ëõ
+*æ•°æ®å‹ç¼©ç®—æ³•ï¼Œåˆ©ç”¨é“æ ¼æ‹‰æ–¯ç®—æ³•å¯¹æ¯æ¡çº¿è¿›è¡Œæ•°æ®å‹ç¼©
+*åŒ…æ‹¬å››ä¸ªå‡½æ•°ï¼Œåˆ†åˆ«è¿›è¡Œï¼š
+*è®¡ç®—ç‚¹åˆ°çº¿çš„è·ç¦»ã€æŸ¥æ‰¾è·ç¦»ä¸­æœ€å¤§æ•°çš„ä½ç½®ã€å¯¹çº¿è¿›è¡Œå‹ç¼©ã€å¯¹åœ°å›¾è¿›è¡Œå‹ç¼©
 *********************************************************************/
-//¼ÆËãµãµ½Ö±ÏßµÄ¾àÀë
+//è®¡ç®—ç‚¹åˆ°ç›´çº¿çš„è·ç¦»
 function lenPoint2Line(targetPoint, originPoint, terminusPoint)
 {
-    //Ô­Ê¼Êı¾İµã×ø±ê
+    //åŸå§‹æ•°æ®ç‚¹åæ ‡
     var paX = targetPoint[0], paY = targetPoint[1];
     var pbX = originPoint[0], pbY = originPoint[1];
     var pcX = terminusPoint[0], pcY = terminusPoint[1];
 
-    //Ïß¶ÎµÄ³¤¶È
+    //çº¿æ®µçš„é•¿åº¦
     var L = Math.sqrt((pbX - pcX)*(pbX - pcX) + (pbY - pcY)*(pbY - pcY));
-    //¼ÆËãÅĞ¶ÏµãÓëÏßÎ»ÖÃµÄ²ÎÊı
+    //è®¡ç®—åˆ¤æ–­ç‚¹ä¸çº¿ä½ç½®çš„å‚æ•°
     var r = ((pbY - paY)*(pbY - pcY) - (pbX - paX)*(pcX - pbX)) / (L*L);
-    //Ä¿±êµãÔÚÖ±ÏßÉÏÍ¶Ó°µãµÄÎ»ÖÃ
+    //ç›®æ ‡ç‚¹åœ¨ç›´çº¿ä¸ŠæŠ•å½±ç‚¹çš„ä½ç½®
     var px = pbX + r*(pcX - pbX), py = pbY + r*(pcY - pbY);
-    //µãµ½Í¶Ó°µãµÄ¾àÀë
+    //ç‚¹åˆ°æŠ•å½±ç‚¹çš„è·ç¦»
     var distance = Math.sqrt((px - paX)*(px - paX) + (py - paY)*(py - paY));
 
     return distance;
 }
 
-//²éÕÒÊı×éÖĞ¾àÀë×î´óÖµµÄÎ»ÖÃ
+//æŸ¥æ‰¾æ•°ç»„ä¸­è·ç¦»æœ€å¤§å€¼çš„ä½ç½®
 function findLengthMax(point2lineArray)
 {
     var max = Number.NEGATIVE_INFINITY, pointLengthNum = point2lineArray.length;
-    var position = 0;           //¼ÇÂ¼µ±Ç°×î´óÖµµÄÎ»ÖÃ
+    var position = 0;           //è®°å½•å½“å‰æœ€å¤§å€¼çš„ä½ç½®
     for (var i = 0; i < pointLengthNum; i++)
     {
         if (point2lineArray[i] > max)
@@ -84,51 +85,51 @@ function findLengthMax(point2lineArray)
     return position;
 }
 
-//¶Ôµ¥ÌõÏß½øĞĞµÀ¸ñÀ­Ë¹Êı¾İÑ¹ËõËã·¨´¦Àí£¬ÔËÓÃµİ¹é
+//å¯¹å•æ¡çº¿è¿›è¡Œé“æ ¼æ‹‰æ–¯æ•°æ®å‹ç¼©ç®—æ³•å¤„ç†ï¼Œè¿ç”¨é€’å½’
 function eachLineDouglasCom(pointArray, originPNum, terminusPNum, computeSign, newPointArray)
 {   
-    //Èç¹ûÆğÖ¹µãÖ®ÖĞµãÊıĞ¡ÓÚÒ»¸öµã£¬½áÊøµİ¹é
+    //å¦‚æœèµ·æ­¢ç‚¹ä¹‹ä¸­ç‚¹æ•°å°äºä¸€ä¸ªç‚¹ï¼Œç»“æŸé€’å½’
     if ((terminusPNum - originPNum) < 2)    return newPointArray;
 
-    //³õÊ¼»¯ÆğÖ¹µãÊı¾İ
+    //åˆå§‹åŒ–èµ·æ­¢ç‚¹æ•°æ®
     var originPoint = pointArray[originPNum], terminusPoint = pointArray[terminusPNum]
-    var targetPNum = terminusPNum - originPNum;     //ĞèÒª¼ÆËãµÄµãµÄÊıÁ¿
-    var eachP2LDis = new Array(targetPNum);         //¼ÇÂ¼ËùÓĞµãµ½Ïß¶ÎµÄ¾àÀë
+    var targetPNum = terminusPNum - originPNum;     //éœ€è¦è®¡ç®—çš„ç‚¹çš„æ•°é‡
+    var eachP2LDis = new Array(targetPNum);         //è®°å½•æ‰€æœ‰ç‚¹åˆ°çº¿æ®µçš„è·ç¦»
 
-    //½«ËùÓĞµãµ½ÏßµÄ¾àÀë¼ÇÂ¼ÏÂÀ´
+    //å°†æ‰€æœ‰ç‚¹åˆ°çº¿çš„è·ç¦»è®°å½•ä¸‹æ¥
     for (var i = 1; i < targetPNum; i++)
         eachP2LDis[i - 1] = lenPoint2Line(pointArray[i + originPNum], originPoint, terminusPoint);
-    //²éÕÒµãµ½ÏßµÄ×î´ó¾àÀëµÄµã£¬²¢·µ»ØÆäÔÚÊı×éÖĞµÄÎ»ÖÃ
+    //æŸ¥æ‰¾ç‚¹åˆ°çº¿çš„æœ€å¤§è·ç¦»çš„ç‚¹ï¼Œå¹¶è¿”å›å…¶åœ¨æ•°ç»„ä¸­çš„ä½ç½®
     var maxLengthPointPosition = findLengthMax(eachP2LDis);
     
-    //Èç¹û×î´ó¾àÀëĞ¡ÓÚ±êÊ¶¾àÀë£¬µİ¹é½áÊø
+    //å¦‚æœæœ€å¤§è·ç¦»å°äºæ ‡è¯†è·ç¦»ï¼Œé€’å½’ç»“æŸ
     if (eachP2LDis[maxLengthPointPosition] < computeSign)   return newPointArray;
     
-    //×î´ó¾àÀë´óÓÚ±êÊ¶¾àÀë£¬½«µã´æÈëÊı×é²¢½øĞĞµİ¹é
+    //æœ€å¤§è·ç¦»å¤§äºæ ‡è¯†è·ç¦»ï¼Œå°†ç‚¹å­˜å…¥æ•°ç»„å¹¶è¿›è¡Œé€’å½’
     var newterminusPNum = originPNum + maxLengthPointPosition + 1;
-    //½«×î´ó¾àÀëµÄµã´æÈëÆğµã´æ´¢µÄºóÒ»Î»
+    //å°†æœ€å¤§è·ç¦»çš„ç‚¹å­˜å…¥èµ·ç‚¹å­˜å‚¨çš„åä¸€ä½
     newPointArray.splice(newPointArray.indexOf(originPoint) + 1, 0, pointArray[newterminusPNum]);
     
-    //Ç°ºó·Ö±ğ½øĞĞµİ¹é
+    //å‰ååˆ†åˆ«è¿›è¡Œé€’å½’
     eachLineDouglasCom(pointArray, originPNum, newterminusPNum, computeSign, newPointArray);
     eachLineDouglasCom(pointArray, newterminusPNum, terminusPNum, computeSign, newPointArray);
 
-    return newPointArray;       //·µ»ØĞÂµÄÏß¶ÎÊı×é
+    return newPointArray;       //è¿”å›æ–°çš„çº¿æ®µæ•°ç»„
 }
 
-//¶ÔµØÍ¼½øĞĞµÀ¸ñÀ­Ë¹Êı¾İÑ¹ËõËã·¨´¦Àí
+//å¯¹åœ°å›¾è¿›è¡Œé“æ ¼æ‹‰æ–¯æ•°æ®å‹ç¼©ç®—æ³•å¤„ç†
 function mapDouglasCom(mapArray, computeSign)
 {
-    var startLine = mapArray[0][1] + 1;      //Ìø¹ıÍø¸ñ£¬Ö±½Ó¶ÔµØÍ¼½øĞĞÑ¹Ëõ
+    var startLine = mapArray[0][1] + 1;      //è·³è¿‡ç½‘æ ¼ï¼Œç›´æ¥å¯¹åœ°å›¾è¿›è¡Œå‹ç¼©
     for (var i = startLine; i <= mapArray[0][0]; i++)
     {
-        //ÅĞ¶ÏÊÇ·ñÎª±ÕºÏÇúÏß£¬Èç¹ûÊÇ½«ÖÕµãÉèÖÃÎªÏß¶Îµ¹ÊıµÚ¶ş¸öµã
+        //åˆ¤æ–­æ˜¯å¦ä¸ºé—­åˆæ›²çº¿ï¼Œå¦‚æœæ˜¯å°†ç»ˆç‚¹è®¾ç½®ä¸ºçº¿æ®µå€’æ•°ç¬¬äºŒä¸ªç‚¹
         var lastPointNum = (mapArray[i][0] == mapArray[i][mapArray[i].length - 1])? 2: 1;
         var tempArray = new Array();
         tempArray[0] = mapArray[i][0], tempArray[1] = mapArray[i][mapArray[i].length - lastPointNum];
-        //¶ÔÏß¶Î½øĞĞÑ¹Ëõ
+        //å¯¹çº¿æ®µè¿›è¡Œå‹ç¼©
         mapArray[i] = eachLineDouglasCom(mapArray[i], 0, mapArray[i].length - lastPointNum, computeSign, tempArray)
-        //µ±Îª±ÕºÏÇúÏßÊ±£¬½«ÖÕµãÉèÎªÆğµãµÄÖµ
+        //å½“ä¸ºé—­åˆæ›²çº¿æ—¶ï¼Œå°†ç»ˆç‚¹è®¾ä¸ºèµ·ç‚¹çš„å€¼
         if (lastPointNum == 2)
             mapArray[i][mapArray[i].length] = mapArray[i][0];
     }
@@ -137,54 +138,54 @@ function mapDouglasCom(mapArray, computeSign)
 }
 
 /***********************************************
-*»æÖÆµØÍ¼£¬²¢¶Ô¾­Î³¶È½øĞĞÀ¼²®ÌØÍ¶Ó°
-*°üº¬ËÄ¸öº¯Êı£¬·Ö±ğ½øĞĞ£º
-*µØÍ¼Í¶Ó°¡¢Ñ°ÕÒµØÍ¼±ß½ç¡¢Ìí¼ÓÍø¸ñÕûÀíÊı×é¡¢Íê³É»æÖÆ
+*ç»˜åˆ¶åœ°å›¾ï¼Œå¹¶å¯¹ç»çº¬åº¦è¿›è¡Œå…°ä¼¯ç‰¹æŠ•å½±
+*åŒ…å«å››ä¸ªå‡½æ•°ï¼Œåˆ†åˆ«è¿›è¡Œï¼š
+*åœ°å›¾æŠ•å½±ã€å¯»æ‰¾åœ°å›¾è¾¹ç•Œã€æ·»åŠ ç½‘æ ¼æ•´ç†æ•°ç»„ã€å®Œæˆç»˜åˆ¶
 ************************************************/
-//½øĞĞÀ¼²®ÌØÍ¶Ó°×ª»»
+//è¿›è¡Œå…°ä¼¯ç‰¹æŠ•å½±è½¬æ¢
 function LambertTransition(mapDraw)
 {
-    //Í¶Ó°×ª»¯Ëã·¨
+    //æŠ•å½±è½¬åŒ–ç®—æ³•
     function LambertTXY(B, L, B0, B1, B2, L0, a, b, e2)
     {
-        //½«½Ç¶ÈÖÆ×ªÎª»¡¶ÈÖÆ
+        //å°†è§’åº¦åˆ¶è½¬ä¸ºå¼§åº¦åˆ¶
         function An2Ra(angle) 
         { 
             return (angle / 180) * Math.PI; 
         }
-        //½«Ô­Ê¼²ÎÊı×ª±äÎª»¡¶ÈÖÆ
+        //å°†åŸå§‹å‚æ•°è½¬å˜ä¸ºå¼§åº¦åˆ¶
         B0 = An2Ra(B0);
         B1 = An2Ra(B1);
         B2 = An2Ra(B2);
         L0 = An2Ra(L0);
-        //½«Ô­Ê¼Êı¾İ×ª»¯Îª»¡¶ÈÖÆ
+        //å°†åŸå§‹æ•°æ®è½¬åŒ–ä¸ºå¼§åº¦åˆ¶
         B = An2Ra(B);
         L = An2Ra(L);
         
-        //»ñµÃB1B2µÄmÖµ
+        //è·å¾—B1B2çš„må€¼
         var mB1 = Math.cos(B1) / Math.sqrt(1 - e2*Math.sin(B1)*Math.sin(B1));
         var mB2 = Math.cos(B2) / Math.sqrt(1 - e2*Math.sin(B2)*Math.sin(B2));
-        //»ñµÃB0B1B2µÄtÖµ
+        //è·å¾—B0B1B2çš„tå€¼
         var tB0 = Math.tan(Math.PI/4 - B0/2) / Math.sqrt((1 - Math.sqrt(e2)*Math.sin(B0)) / ((1 + Math.sqrt(e2)*Math.sin(B0)), Math.sqrt(e2)/2));
         var tB1 = Math.tan(Math.PI/4 - B1/2) / Math.sqrt((1 - Math.sqrt(e2)*Math.sin(B1)) / ((1 + Math.sqrt(e2)*Math.sin(B1)), Math.sqrt(e2)/2));
         var tB2 = Math.tan(Math.PI/4 - B2/2) / Math.sqrt((1 - Math.sqrt(e2)*Math.sin(B2)) / ((1 + Math.sqrt(e2)*Math.sin(B2)), Math.sqrt(e2)/2));
-        //»ñµÃnÖµ
+        //è·å¾—nå€¼
         var n = Math.log(mB1/mB2) / Math.log(tB1/tB2);
-        //»ñµÃFÖµ
+        //è·å¾—Få€¼
         var F = mB1 / (n * Math.pow(tB1, n));		
-        //»ñµÃr0
+        //è·å¾—r0
         var r0 = a * F * Math.pow(tB0, n);
-        //»ñµÃtheTaÖµ
+        //è·å¾—theTaå€¼
         var theTa = n * (L - L0);
         
-        //»ñµÃBµÄtÖµ
+        //è·å¾—Bçš„tå€¼
         var tB = Math.tan(Math.PI/4 - B/2) / Math.sqrt((1 - Math.sqrt(e2)*Math.sin(B)) / ((1 + Math.sqrt(e2)*Math.sin(B)), Math.sqrt(e2)/2));
-        //»ñµÃrÖµ
+        //è·å¾—rå€¼
         var r = a * F * Math.pow(tB, n); 
         
-        //¼ÆËã×ø±ê
-        var XL = r * Math.sin(theTa);	//¾­¶È
-        var YB = r0 - r * Math.cos(theTa);	//Î³¶È
+        //è®¡ç®—åæ ‡
+        var XL = r * Math.sin(theTa);	//ç»åº¦
+        var YB = r0 - r * Math.cos(theTa);	//çº¬åº¦
         var XY = new Array(XL, YB);
         return XY;
     }
@@ -198,20 +199,20 @@ function LambertTransition(mapDraw)
     return mapDraw;
 }
 
-//ÕÒµ½µØÍ¼µÄÆğÊ¼±ß½ç£¬²¢½«µØÍ¼ÉÏÏÂ×óÓÒ±ß½çÒÔÊı×éĞÎÊ½¼ÇÂ¼²¢´«³ö
+//æ‰¾åˆ°åœ°å›¾çš„èµ·å§‹è¾¹ç•Œï¼Œå¹¶å°†åœ°å›¾ä¸Šä¸‹å·¦å³è¾¹ç•Œä»¥æ•°ç»„å½¢å¼è®°å½•å¹¶ä¼ å‡º
 function findBorder(mapArray)
 {
-    //ÉèÖÃ³õÊ¼×î´ó×îĞ¡×ø±êÎªÎŞÏŞĞ¡ÎŞÏŞ´ó
+    //è®¾ç½®åˆå§‹æœ€å¤§æœ€å°åæ ‡ä¸ºæ— é™å°æ— é™å¤§
     var maxX = Number.NEGATIVE_INFINITY, maxY = Number.NEGATIVE_INFINITY;
     var minX = Number.POSITIVE_INFINITY, minY = Number.POSITIVE_INFINITY; 
-    var lineNum = mapArray.length;              //µ±Ç°µØÍ¼Ïß¶ÎÊıÁ¿
-    var lineArray, pointNum, corX, corY;        //µ±Ç°Ïß¶Î,µ±Ç°Ïß¶ÎµãÊıÄ¿,µ±Ç°µãXY
+    var lineNum = mapArray.length;              //å½“å‰åœ°å›¾çº¿æ®µæ•°é‡
+    var lineArray, pointNum, corX, corY;        //å½“å‰çº¿æ®µ,å½“å‰çº¿æ®µç‚¹æ•°ç›®,å½“å‰ç‚¹XY
 
-    //±éÀúËùÓĞÏß¶ÎËùÓĞµãÕÒµ½×î´ó×îĞ¡Öµ
+    //éå†æ‰€æœ‰çº¿æ®µæ‰€æœ‰ç‚¹æ‰¾åˆ°æœ€å¤§æœ€å°å€¼
     for (var i = 1; i < lineNum; i++)
     {
-        lineArray = mapArray[i];                //µ±Ç°Ïß¶ÎÊı×é
-        pointNum = lineArray.length;            //µ±Ç°Ïß¶ÎµãÊı
+        lineArray = mapArray[i];                //å½“å‰çº¿æ®µæ•°ç»„
+        pointNum = lineArray.length;            //å½“å‰çº¿æ®µç‚¹æ•°
         for (var j = 0; j < pointNum; j++)
         {
             corX = lineArray[j][0], corY = lineArray[j][1];
@@ -225,30 +226,30 @@ function findBorder(mapArray)
     return Array(minX, maxX, minY, maxY);
 }
 
-//ÎªµØÍ¼Ôö¼ÓÍø¸ñ£¬²¢½øĞĞÍ¶Ó°ÏÔÊ¾£¬»ò½øĞĞÊı¾İÑ¹Ëõ
+//ä¸ºåœ°å›¾å¢åŠ ç½‘æ ¼ï¼Œå¹¶è¿›è¡ŒæŠ•å½±æ˜¾ç¤ºï¼Œæˆ–è¿›è¡Œæ•°æ®å‹ç¼©
 function completeMap(mapArray)
 {
-    var mapDraw = new Array();                  //´æ´¢ĞèÒª»æÖÆµÄÍ¼ĞÎÊı¾İ£¬È«²¿ÒÔµãµÄĞÎÊ½´æ´¢
-    var borderList = findBorder(mapArray);      //ÕÒµ½µØÍ¼±ß½ç
-    //ÒÔÎå¶ÈÎª¼ä¸ô£¬½¨Á¢Íø¸ñ²¢¼ÇÂ¼±ß½ç
+    var mapDraw = new Array();                  //å­˜å‚¨éœ€è¦ç»˜åˆ¶çš„å›¾å½¢æ•°æ®ï¼Œå…¨éƒ¨ä»¥ç‚¹çš„å½¢å¼å­˜å‚¨
+    var borderList = findBorder(mapArray);      //æ‰¾åˆ°åœ°å›¾è¾¹ç•Œ
+    //ä»¥äº”åº¦ä¸ºé—´éš”ï¼Œå»ºç«‹ç½‘æ ¼å¹¶è®°å½•è¾¹ç•Œ
     var leftBorder = parseInt(borderList[0]/5) - (borderList[0] < 0 ? 1: 0);
     var rightBorder = parseInt(borderList[1]/5) + (borderList[1] < 0 ? 0: 1);
     var bottomBorder = parseInt(borderList[2]/5) - (borderList[2] < 0 ? 1: 0);
     var topBorder = parseInt(borderList[3]/5) + (borderList[3] < 0 ? 0: 1);
-    //¾­Î³Ïß¸÷×ÔÊıÁ¿
+    //ç»çº¬çº¿å„è‡ªæ•°é‡
     var longLineNum = rightBorder - leftBorder -1, latLineNum = topBorder - bottomBorder - 1;
-    //¾­Î³Ïß³¤¶È
+    //ç»çº¬çº¿é•¿åº¦
     var longLineLen = (latLineNum + 1) * 5, latLineLen = (longLineNum + 1) * 5;
 
-    //½«Íø¸ñÊı×é´æ´¢½øÈëÊı×é
-    //´æ´¢ÊúÏßÊı¾İ
+    //å°†ç½‘æ ¼æ•°ç»„å­˜å‚¨è¿›å…¥æ•°ç»„
+    //å­˜å‚¨ç«–çº¿æ•°æ®
     for (var i = 1; i <= longLineNum; i++)
     {
         mapDraw[i] = new Array(2);
         mapDraw[i][0] = new Array((leftBorder + i)*5, bottomBorder*5);
         mapDraw[i][1] = new Array((leftBorder + i)*5, bottomBorder*5 + longLineLen);
     }
-    //´æ´¢ºáÏßÊı¾İ
+    //å­˜å‚¨æ¨ªçº¿æ•°æ®
     for (var i = 1; i <= latLineNum; i++)
     {
         mapDraw[i + longLineNum] = new Array(longLineNum);
@@ -258,18 +259,18 @@ function completeMap(mapArray)
         }
     }
 
-    //½«µØÍ¼Êı¾İ´æ´¢½øÈëÊı×é£¬Ö±½ÓÔÚÍø¸ñÊı¾İºóÃæÌí¼Ó
-    var mapLineNum = mapArray[0];               //»ñµÃµØÍ¼×ÜÏß¶ÎÊı
+    //å°†åœ°å›¾æ•°æ®å­˜å‚¨è¿›å…¥æ•°ç»„ï¼Œç›´æ¥åœ¨ç½‘æ ¼æ•°æ®åé¢æ·»åŠ 
+    var mapLineNum = mapArray[0];               //è·å¾—åœ°å›¾æ€»çº¿æ®µæ•°
     for (var i = 1; i <= mapLineNum; i++)
     {
         mapDraw[i +longLineNum + latLineNum] = new Array();
         mapDraw[i + longLineNum + latLineNum] = mapArray[i].slice();
     }
     
-    //¼ÇÂ¼ÓÃÓÚËùÓĞÏß×ÜÊı£¬»­Íø¸ñµÄÏßÌõÊı£¬µØÍ¼Ïß¶ÎÊı
+    //è®°å½•ç”¨äºæ‰€æœ‰çº¿æ€»æ•°ï¼Œç”»ç½‘æ ¼çš„çº¿æ¡æ•°ï¼Œåœ°å›¾çº¿æ®µæ•°
     mapDraw[0] = new Array(mapDraw.length - 1, longLineNum + latLineNum, mapArray[0]) ; 
     
-    //½øĞĞÀ¼²®ÌØÍ¶Ó°
+    //è¿›è¡Œå…°ä¼¯ç‰¹æŠ•å½±
     mapDraw = LambertTransition(mapDraw);
 
     if (dataCom)
@@ -278,7 +279,7 @@ function completeMap(mapArray)
         mapDraw = mapDouglasCom(mapDraw, comNum);
     }
 
-    //·Ö±ğ¼ÇÂ¼Ñ¹ËõÇ°ºóµÄÊı¾İÁ¿
+    //åˆ†åˆ«è®°å½•å‹ç¼©å‰åçš„æ•°æ®é‡
     if (dataCom)
         newMapDataSize = calDataSize(mapDraw);
     else
@@ -287,22 +288,22 @@ function completeMap(mapArray)
     return mapDraw;
 }
 
-//»æÖÆµØÍ¼
+//ç»˜åˆ¶åœ°å›¾
 function drawMap(mapArray)
 {
     var rawDrawPoints = completeMap(mapArray);
-    //»ñµÃ»­²¼µÄ³¤¿í¶¨±ê
+    //è·å¾—ç”»å¸ƒçš„é•¿å®½å®šæ ‡
     var mapDrawBorder = findBorder(rawDrawPoints);
     var W2HRatio = (mapDrawBorder[1] - mapDrawBorder[0]) / (mapDrawBorder[3] - mapDrawBorder[2]);
     var interval, minX = mapDrawBorder[0], maxX = mapDrawBorder[1], minY = mapDrawBorder[2] ,maxY = mapDrawBorder[3];
 
-    //ÉèÖÃËõ·Å±ÈÀı£¬Ê¹µØÍ¼ÔÚÆÁÄ»ÖĞÑëÏÔÊ¾²¢´óĞ¡ºÏÊÊ
+    //è®¾ç½®ç¼©æ”¾æ¯”ä¾‹ï¼Œä½¿åœ°å›¾åœ¨å±å¹•ä¸­å¤®æ˜¾ç¤ºå¹¶å¤§å°åˆé€‚
     if (W2HRatio >= 1.5)    interval = 900/(mapDrawBorder[1] - mapDrawBorder[0]);
     else    interval = 600/(mapDrawBorder[3] - mapDrawBorder[2]);
     var mapWidth = interval * (mapDrawBorder[1] - mapDrawBorder[0]);
     var mapHeight = interval * (mapDrawBorder[3] - mapDrawBorder[2]);
 
-    //ÉèÖÃdivºÍ»­²¼³¤¿í
+    //è®¾ç½®divå’Œç”»å¸ƒé•¿å®½
     var mapDrawDiv = document.getElementById("canvasDiv");
     mapDrawDiv.style.height = mapHeight + "px";
     mapDrawDiv.style.width = mapWidth + "px";
@@ -310,44 +311,44 @@ function drawMap(mapArray)
     myCanvas.width = mapWidth;
     myCanvas.height = mapHeight;
 
-    //»æÖÆ
+    //ç»˜åˆ¶
     var drawCanvas = myCanvas.getContext("2d");
-    drawCanvas.lineWidth = 0.5;                         //ÉèÖÃÏß¿í
-    drawCanvas.strokeStyle = "gray";                    //ÉèÖÃÏßÉ«
-    //ÒÀ´Î»æÖÆÃ¿Ò»ÌõÏß
+    drawCanvas.lineWidth = 0.5;                         //è®¾ç½®çº¿å®½
+    drawCanvas.strokeStyle = "gray";                    //è®¾ç½®çº¿è‰²
+    //ä¾æ¬¡ç»˜åˆ¶æ¯ä¸€æ¡çº¿
     for (var i = 1; i <= rawDrawPoints[0][0]; i++)
     {
         if (i == rawDrawPoints[0][1] + 1)
-        {//Íø¸ñ»æÖÆÍê±Ï£¬¿ªÊ¼»æÖÆµØÍ¼
-            drawCanvas.lineWidth = 1.3;                           //ÉèÖÃÏß¿í
-            drawCanvas.strokeStyle = "purple";                    //ÉèÖÃÏßÉ«
+        {//ç½‘æ ¼ç»˜åˆ¶å®Œæ¯•ï¼Œå¼€å§‹ç»˜åˆ¶åœ°å›¾
+            drawCanvas.lineWidth = 1.3;                           //è®¾ç½®çº¿å®½
+            drawCanvas.strokeStyle = "purple";                    //è®¾ç½®çº¿è‰²
         }
         var lineList = rawDrawPoints[i];
         drawCanvas.beginPath();
         drawCanvas.moveTo((lineList[0][0] - minX) * interval, (maxY - lineList[0][1]) * interval);
         for (var j = 1; j < lineList.length; j++)
             drawCanvas.lineTo((lineList[j][0]- minX) * interval, (maxY - lineList[j][1]) * interval);
-        drawCanvas.stroke();                                //»æÖÆÏßÌõ
+        drawCanvas.stroke();                                //ç»˜åˆ¶çº¿æ¡
     }
     
-    //Èç¹ûÃ»ÓĞ½øĞĞÊı¾İÑ¹Ëõ
+    //å¦‚æœæ²¡æœ‰è¿›è¡Œæ•°æ®å‹ç¼©
     if (!dataCom)   return;
 
-    drawCanvas.strokeStyle = "black";                    //ÉèÖÃ×ÖÉ«
-    drawCanvas.font = "16px ºÚÌå";
-    //ÏÔÊ¾Ñ¹ËõÂÊ
-    drawCanvas.fillText("Ñ¹ËõÂÊ", 20, 30);
+    drawCanvas.strokeStyle = "black";                    //è®¾ç½®å­—è‰²
+    drawCanvas.font = "16px é»‘ä½“";
+    //æ˜¾ç¤ºå‹ç¼©ç‡
+    drawCanvas.fillText("å‹ç¼©ç‡", 20, 30);
     drawCanvas.fillText(((newMapDataSize/rawMapDataSize)*100).toFixed(2) + "%", 20, 50);
 
     return;
 }
 
-//¸ù¾İÊäÈë£¬ĞŞ¸ÄÑ¹Ëõ±ÈÀı
+//æ ¹æ®è¾“å…¥ï¼Œä¿®æ”¹å‹ç¼©æ¯”ä¾‹
 function setCom()
 {
-    var obj = document.getElementById("yadata"); //¶¨Î»id
-    comNum = obj.value; //Ñ¡ÖĞµØÇøµÄ±àºÅ
-    //¶Ô»­²¼½øĞĞÖØ»æ
+    var obj = document.getElementById("yadata"); //å®šä½id
+    comNum = obj.value; //é€‰ä¸­åœ°åŒºçš„ç¼–å·
+    //å¯¹ç”»å¸ƒè¿›è¡Œé‡ç»˜
     var canvas = document.getElementById("mapDrawing");
     canvas.parentNode.removeChild(canvas);
     myCanvas = document.createElement("canvas");
@@ -358,72 +359,72 @@ function setCom()
 
 
 /**********************************************************************
-*¶ÁÈ¡ÎÄ¼ş²¢½«Êı¾İ´æÈëÊı×é£¬×îºó½«µØÍ¼»æÖÆ
-*°üÀ¨Á½¸öº¯Êı£¬×îÖÕÊä³öĞÎÊ½Îª£º                      
-*Ò»¸öµØÍ¼Êı×é°üº¬×ÜÏßÊıºÍ¶àÌõÏßÊı×é£»Ò»¸öÏßÊı×é°üº¬¶à¸öµã£¬Ò»¸öµã¼ÇÂ¼XY×ø±ê     
-*Êı×é´óĞ¡Îª×ÜÏß¶ÎÊı¼ÓÒ»
+*è¯»å–æ–‡ä»¶å¹¶å°†æ•°æ®å­˜å…¥æ•°ç»„ï¼Œæœ€åå°†åœ°å›¾ç»˜åˆ¶
+*åŒ…æ‹¬ä¸¤ä¸ªå‡½æ•°ï¼Œæœ€ç»ˆè¾“å‡ºå½¢å¼ä¸ºï¼š                      
+*ä¸€ä¸ªåœ°å›¾æ•°ç»„åŒ…å«æ€»çº¿æ•°å’Œå¤šæ¡çº¿æ•°ç»„ï¼›ä¸€ä¸ªçº¿æ•°ç»„åŒ…å«å¤šä¸ªç‚¹ï¼Œä¸€ä¸ªç‚¹è®°å½•XYåæ ‡     
+*æ•°ç»„å¤§å°ä¸ºæ€»çº¿æ®µæ•°åŠ ä¸€
 ***********************************************************************/
-//°´ÏÂÊı¾İÑ¹Ëõ°´Å¥£¬¶ÔÊı¾İ½øĞĞÑ¹Ëõ±êÊ¶½øĞĞ¸Ä¶¯
+//æŒ‰ä¸‹æ•°æ®å‹ç¼©æŒ‰é’®ï¼Œå¯¹æ•°æ®è¿›è¡Œå‹ç¼©æ ‡è¯†è¿›è¡Œæ”¹åŠ¨
 function onComSign() 
 { 
     dataCom = 1; 
     drawMap(myMap);
 }
 
-//´ò¿ªÎÄ¼şºó£¬Ìí¼ÓÊı¾İÑ¹ËõµÄ°´Å¥
+//æ‰“å¼€æ–‡ä»¶åï¼Œæ·»åŠ æ•°æ®å‹ç¼©çš„æŒ‰é’®
 function addComButtom()
 {
     document.getElementById("conButton").style.visibility = "visible";
 }
 
-//½«×Ö·û´®ĞÎÊ½×ª»»ÎªÊı×ÖĞÎÊ½£¬Êı¾İ¸ñÊ½Îª.genÎÄ¼ş¸ñÊ½
+//å°†å­—ç¬¦ä¸²å½¢å¼è½¬æ¢ä¸ºæ•°å­—å½¢å¼ï¼Œæ•°æ®æ ¼å¼ä¸º.genæ–‡ä»¶æ ¼å¼
 function mapStr2mapXY(mapStr)
 {
-    var lineNum = 1;        //¼ÇÂ¼ÒÑ¾­¶ÁÈ¡ĞĞÊı
-    var pointNum = 0;       //¼ÇÂ¼µ±Ç°ÏßµãÊı
+    var lineNum = 1;        //è®°å½•å·²ç»è¯»å–è¡Œæ•°
+    var pointNum = 0;       //è®°å½•å½“å‰çº¿ç‚¹æ•°
     var mapXY = new Array();  
-    var strs = mapStr.split("\n");     //ÉèÖÃ·Ö¸î
+    var strs = mapStr.split("\n");     //è®¾ç½®åˆ†å‰²
     for (var i = 0; i < strs.length ;i++)
     {
-        if( i == 0)   //ÎªµÚÒ»ÌõÏßÔö¼Ó´æ´¢¿Õ¼ä
+        if( i == 0)   //ä¸ºç¬¬ä¸€æ¡çº¿å¢åŠ å­˜å‚¨ç©ºé—´
         {
             mapXY[lineNum] = new Array();
             i++;
         }
         if(strs[i].indexOf("END") >= 0)
         {
-            if(strs[i+1].indexOf("END") >= 0)    //ÎÄ¼ş½áÊø
+            if(strs[i+1].indexOf("END") >= 0)    //æ–‡ä»¶ç»“æŸ
             {
                 mapXY[0] = lineNum;
                 return mapXY;
             }
-            else                                //µ±Ç°Ïß¶Î½áÊø
+            else                                //å½“å‰çº¿æ®µç»“æŸ
             {
-                mapXY[++lineNum] = new Array(); //ÎªÏÂÒ»ÌõÏß·ÖÅä¿Õ¼ä
+                mapXY[++lineNum] = new Array(); //ä¸ºä¸‹ä¸€æ¡çº¿åˆ†é…ç©ºé—´
                 i += 2;
                 pointNum = 0;
             }
         }
 
-        //½«¸Ãµã¼ÇÂ¼½øÈëÊı×é
+        //å°†è¯¥ç‚¹è®°å½•è¿›å…¥æ•°ç»„
         var XY = strs[i].split(',');
-        mapXY[lineNum][pointNum] = new Array(2);       //·ÖÅä´æ´¢¿Õ¼ä
+        mapXY[lineNum][pointNum] = new Array(2);       //åˆ†é…å­˜å‚¨ç©ºé—´
         mapXY[lineNum][pointNum][0] = parseFloat(XY[0]);
         mapXY[lineNum][pointNum++][1] = parseFloat(XY[1]);
     }//for
 }
 
-//Í¨¹ı°´Å¥¶ÁÈ¡ÎÄ¼ş²¢»æÖÆ
+//é€šè¿‡æŒ‰é’®è¯»å–æ–‡ä»¶å¹¶ç»˜åˆ¶
 function readMapFile()
 {  
-    addComButtom();             //Ìí¼Ó°´Å¥
-    var mapFile = document.getElementById("openMapFile").files[0];  //»ñÈ¡ÎÄ¼ş
+    addComButtom();             //æ·»åŠ æŒ‰é’®
+    var mapFile = document.getElementById("openMapFile").files[0];  //è·å–æ–‡ä»¶
     var reader = new FileReader();
     reader.readAsText(mapFile);  
     reader.onload=function(e)
     {
-        myMap = mapStr2mapXY(this.result)   //½«¶ÁÈ¡µÄ×Ö·û´®×ªÎªÊı×Ö
-        drawMap(myMap);                     //»æÖÆÔ­Ê¼µØÍ¼
+        myMap = mapStr2mapXY(this.result)   //å°†è¯»å–çš„å­—ç¬¦ä¸²è½¬ä¸ºæ•°å­—
+        drawMap(myMap);                     //ç»˜åˆ¶åŸå§‹åœ°å›¾
     }     
 }
 		 </script>
