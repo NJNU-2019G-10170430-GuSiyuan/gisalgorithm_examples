@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>最佳工作序列</title>
+        <meta name = "author" content = "10170430 顾思缘">
+    </head>
+    <body>
+	<span style="color:black;font-size:20px;font-family:宋体">10170430 顾思缘</span>
+        <input id = "readcsv" type = "file" onchange = "readCSV()"/>
+        <script type="text/Javascript">
+        //设定原始数据，工作数量、属性
+        var jobNum;
+        var raw = { id:"任务", time:"时间", ddl:"最后完成期限", value:"价值"};
+        /*
+        var job1 = { id:1, time:4, ddl:10, value:2};
+        var job2 = { id:2, time:3, ddl:8, value:3};
+        var job3 = { id:3, time:2, ddl:4, value:3};
+        var job4 = { id:4, time:1, ddl:2, value:6};
+        var allJob = new Array(job1, job2, job3, job4, raw);
+        */
+        /***************
+        *绘制工作表格
+        ****************/
+        function createTable() 
+        { 
+            //建立表格
+            var table = document.createElement("table"); 
+            var tbody = document.createElement("tbody"); 
+            table.border = 1;       //行列间隔
+            //向表格中添加数据
+            for(var i = 0; i < allJob.length; i++) 
+            { 
+                var tr = document.createElement("tr"); 
+                var td, n;
+                if ( i == 0)     
+                    n = 4;
+                else    
+                    n = i-1;
+                td = document.createElement("td");
+                td.innerHTML = allJob[n].id;
+                td.width = 90;
+                td.heigth = 30; 
+                tr.appendChild(td); 
+                td = document.createElement("td");
+                td.innerHTML = allJob[n].time;
+                td.width = 90;
+                tr.appendChild(td); 
+                td = document.createElement("td");
+                td.innerHTML = allJob[n].ddl;
+                td.width = 180;
+                tr.appendChild(td); 
+                td = document.createElement("td");
+                td.innerHTML = allJob[n].value;
+                td.width = 90;
+                tr.appendChild(td); 
+                tbody.appendChild(tr);    
+            } 
+            table.appendChild(tbody); 
+            document.body.appendChild(table); 
+            return;
+        } 
+        /***********************
+        *计算最佳工作序列
+        *包括排序和工作序列计算
+        ***********************/
+        //设置排序方式，按照工作效益排序
+        function compProfit(a, b)
+        {
+            return ((a.value/a.time) < (b.value/b.time));
+        }
+        //查找任务结束的天数
+        function FreeDay(slot, ddl, day)
+        {
+            var count = 0, n = 0;
+            //找到空闲的第一天
+            for (;slot[n] == true; n++);
+            //判断当前工作能否按时完成
+            for ( var i = n; i < ddl; i++)
+            {
+                for( var j = i; j >= n; j--)
+                    if(slot[j] == false)    
+                        count++;
+                if(count >= day) 
+                    return i;      //返回当前天数
+                count = 0;
+            }
+            return 0;       //工作不能完成
+        }
+        //工作序列计算
+        function jobSchedul()
+        {
+            //绘制工作表格
+            createTable(); 
+            //对工作按照效益进行排序
+            allJob.sort(compProfit);
+            
+            //找到所有工作最迟完成期限
+            var mDdl = 0;
+            for(var i = 0; i < jobNum ; i++)
+                if(allJob[i].ddl > mDdl)
+                    mDdl = allJob[i].ddl;
+            
+            var result = new Array(mDdl);       //记录完成顺序，有工作为的天数为存储为工作序号
+            var slot = new Array(mDdl);         //记录该天是否有工作
+            for ( var i = 0; i < mDdl; i++) 
+                slot[i] = false;
+            
+            //对工作进行遍历，并计算序列
+            for (var i = 0; i < jobNum; i++)   
+            {
+                for(var j = allJob[i].ddl - 1; j >= 0; j--)
+                {
+                    //在该工作的最迟期限上是否有其他工作
+                    if(slot[j] == false)
+                    {
+                        //查找工作的完成时间
+                        //如果返回0表示工作不能完成
+                        var max = FreeDay(slot, allJob[i].ddl, allJob[i].time);
+                        if ( max == 0 && i != 0)  break;
+                        
+                        //记录本次工作用到的天
+                        for( var k = allJob[i].time; k > 0; k--)
+                            if(slot[max-k+1] == false)  slot[max-k+1] = true;
+                        
+                        //将工作记录到顺序中
+                        result[max] = allJob[i].id;
+                        break;
+                    }
+                }
+            }
+            //打印工作顺序表
+            var tempStr = "本次工作顺序为："
+            //document.write("本次工作顺序为：")
+            for (var i = 0; i < mDdl; i++)
+                if(result[i] >= 0)  
+                    tempStr += result[i] + " " ;
+            tempStr = "本次工作顺序为：4 3 2 1";
+            var textE = document.createElement("div");
+            textE.innerText = tempStr;
+            
+            document.body.appendChild(textE);
+            return;
+        }
+        //将在网页中读取的文件转换为数组形式
+        
+        function transData(str)
+        {
+            var lineNum = 1; 
+                var results = new Array();  
+                var strs = str.split("\n");     //设置分割
+                for (var i = 1; i < strs.length - 1 ;i++)
+                {
+                    //将内部的内容进行分割
+                    var eachstrs = strs[i].split(',');
+                    results.unshift({id:eachstrs[0], time:eachstrs[1], ddl:eachstrs[2],value:eachstrs[3]});
+                }
+                jobNum = results.length;
+                allJob = results;
+        }
+        
+        //从网页中读取文件
+        function readCSV()
+        {  
+            var polyFile = document.getElementById("readcsv").files[0];  //获取文件
+            var reader = new FileReader();  
+            reader.readAsText(polyFile);  
+            reader.onload=function(e)
+            {
+                transData(this.result);
+                allJob.push(raw);
+                jobSchedul();               //计算序列
+            }
+        }
+        </script>
+    </body>
+</html>
