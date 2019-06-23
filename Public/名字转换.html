@@ -8,10 +8,10 @@
             margin:0; /*外...*/
             } 
             body { 
-            font-family:verdana, sans-serif; 
-            font-size:small;  
+            font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif"; 
+            font-size:big;  
             } 
-            #navigation, #navigation li ul { 
+            #navigation ,#navigation li ul { 
             list-style-type:none; /*不显示项目符号*/
             } 
             #navigation {   
@@ -25,7 +25,7 @@
             #navigation li a:link, #navigation li a:visited { 
             display:block; /*以块的形式显示   http://www.w3school.com.cn/cssref/pr_class_display.asp*/
             text-decoration:none; /*标准文本格式  http://www.w3school.com.cn/cssref/pr_text_text-decoration.asp*/
-            color:#000; 
+            color:gray; 
             width:120px; 
             height:40px; 
             line-height:40px; /*设置行高  http://www.w3school.com.cn/cssref/pr_dim_line-height.asp*/
@@ -35,8 +35,8 @@
             padding-left:10px; 
             } 
             #navigation li a:hover { 
-            color:#fff; 
-            background:#2687eb; 
+            color:ghostwhite; 
+            background:#76B4F8; 
             } 
             #navigation li ul li a:hover { 
             color:#fff; 
@@ -61,11 +61,11 @@
             } 
         </style> 
  
-        <body>      
-            <div style="top:500px">
+        <body> 
+            <ul id="navigation"> 
+		   <div style="top:500px">
                  <input id="fileInput" type="file" onchange="processFiles()"/>
             </div>
-            <ul id="navigation"> 
                 <li onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)" >  
                     <a href="#">比例变换</a> 
                     <ul> 
@@ -213,8 +213,6 @@
                         ylarge[i]*=1.05;            
                     }
                     tran=numberlarge.slice(0);
-                    tranx=xlarge.slice(0);
-                    trany=ylarge.slice(0);
                     
                     draw(numberlarge);
                     dracanvas(xlarge,ylarge);//坐标系
@@ -240,8 +238,6 @@
                         yshrink[i]*=0.95;         
                     }
                     tran=numbershrink.slice(0);
-                    tranx=xshrink.slice(0);
-                    trany=yshrink.slice(0);
                     
                     draw(numbershrink);
                     dracanvas(xshrink,yshrink);//坐标系
@@ -265,9 +261,7 @@
                         xtranslateright[i]+=3;            
                     }
                     tran=numbertranslateright.slice(0);
-                    tranx=xtranslateright.slice(0);
-                    trany=ytranslateright.slice(0);
-                    
+
                     draw(numbertranslateright);
                     dracanvas(xtranslateright,ytranslateright);//坐标系
                 }
@@ -290,8 +284,6 @@
                         xtranslateleft[i]-=3;            
                     }
                     tran=numbertranslateleft.slice(0);
-                    tranx=xtranslateleft.slice(0);
-                    trany=ytranslateleft.slice(0);
                     
                     draw(numbertranslateleft);
                     dracanvas(xtranslateleft,ytranslateleft);//坐标系
@@ -314,9 +306,7 @@
                         ytranslatetop[i]-=3;            
                     }
                     tran=numbertranslatetop.slice(0);
-                    tranx=xtranslatetop.slice(0);
-                    trany=ytranslatetop.slice(0);
-                    
+                   
                     draw(numbertranslatetop);
                     dracanvas(xtranslatetop,ytranslatetop);//坐标系
                 }
@@ -338,8 +328,6 @@
                         ytranslatebutton[i]+=3;            
                     }
                     tran=numbertranslatebutton.slice(0);
-                    tranx=xtranslatebutton.slice(0);
-                    trany=ytranslatebutton.slice(0);
                     
                     draw(numbertranslatebutton);
                     dracanvas(xtranslatebutton,ytranslatebutton);//坐标系
@@ -562,11 +550,10 @@
                     reader.onload=function(e)
                     {
                         var str = this.result;//读取文本
-                            
+                          
                         number= digitalExtraction(str,number);//提取数字并存入数组
                         tran=number.slice(0);
                         XY();
- 
                         draw(number);
                         dracanvas(a,b);//坐标系 
                     
@@ -582,7 +569,7 @@
                         var flag=0;//heap字符串当前标记
                         var n=0;//标识数字与字符转换位置
                         var character=heap[flag];//获取字符串的一个字符
-                    // document.write(heap);
+                      //document.write(heap);
                         while(character!=null){
                             if(character=="L"){
                                 number[i++]=-1;
@@ -611,8 +598,8 @@
                         
                         
                     var cxt=canvas.getContext('2d'); 
-                    cxt.lineWidth = 8;
-                    cxt.strokeStyle = "blue";   
+                    cxt.lineWidth = 2;
+                    cxt.strokeStyle = "red";   
                     var n= numb.length;
                     numb[n]=-1;
                     var n= numb.length;
@@ -625,8 +612,8 @@
                     
                     for(var i=1,j=0;i<n;i++){
                         if(numb[i]!=-1){
-                            x[j]=numb[i]*15;
-                            y[j]=numb[++i]*15;
+                            x[j]=numb[i]*10;
+                            y[j]=numb[++i]*10;
                             j++;
                         }else{
                             cxt.beginPath();
@@ -642,8 +629,8 @@
                 //XY轴坐标初始化
                 function XY(){
                     for(var i=0;i<32;i++){
-                        a[i]=30+i*10;
-                        b[i]=30+i*10;
+                        a[i]=1+i*10;
+                        b[i]=1+i*10;
                     }
                     tranx=a.slice(0);
                     trany=b.slice(0);
@@ -654,7 +641,7 @@
  
                     var ctx =canvas.getContext('2d');
                     ctx.lineWidth = 1;
-                    ctx.strokeStyle = "red";  
+                    ctx.strokeStyle = "black";  
                     
                     for(var i=0;i<32;i++){
                         ctx.beginPath();
