@@ -1,694 +1,311 @@
-<html>  
-    <head>  
-        <title>Ãû³Æ¿Õ¼ä±ä»»</title>  
-    </head>  
-        <style type="text/css">  
-            * { 
-            padding:0; /*ÄÚ¿ò¾à ÉÏÓÒÏÂ×ó*/
-            margin:0; /*Íâ...*/
-            } 
-            body { 
-            font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", "serif"; 
-            font-size:big;  
-            } 
-            #navigation ,#navigation li ul { 
-            list-style-type:none; /*²»ÏÔÊ¾ÏîÄ¿·ûºÅ*/
-            } 
-            #navigation {   
-            margin:0px; 
-            } 
-            #navigation li { 
-            float:left; /*¸¡¶¯Î»ÖÃ   http://www.w3school.com.cn/cssref/pr_class_float.asp*/
-            text-align:center; 
-            position:relative; /*Ïà¶Ô¶¨Î»  http://www.w3school.com.cn/cssref/pr_class_position.asp*/
-            } 
-            #navigation li a:link, #navigation li a:visited { 
-            display:block; /*ÒÔ¿éµÄĞÎÊ½ÏÔÊ¾   http://www.w3school.com.cn/cssref/pr_class_display.asp*/
-            text-decoration:none; /*±ê×¼ÎÄ±¾¸ñÊ½  http://www.w3school.com.cn/cssref/pr_text_text-decoration.asp*/
-            color:gray; 
-            width:120px; 
-            height:40px; 
-            line-height:40px; /*ÉèÖÃĞĞ¸ß  http://www.w3school.com.cn/cssref/pr_dim_line-height.asp*/
-            border:1px solid #fff; /*ÉèÖÃ±ß¿òÊôĞÔ http://www.w3school.com.cn/cssref/pr_border.asp*/
-            border-width:1px 1px 0 0; 
-            background:#c5dbf2; 
-            padding-left:10px; 
-            } 
-            #navigation li a:hover { 
-            color:ghostwhite; 
-            background:#76B4F8; 
-            } 
-            #navigation li ul li a:hover { 
-            color:#fff; 
-            background:#6b839c; 
-            } 
-            #navigation li ul { 
-            display:none; 
-            position:absolute; 
-            top:40px; 
-            left:0; 
-            margin-top:1px; 
-            width:120px; 
-            } 
-            #navigation li ul li ul { 
-            display:none; 
-            position:absolute; 
-            top:0px; 
-            left:130px; 
-            margin-top:0; 
-            margin-left:1px; 
-            width:120px; 
-            } 
-        </style> 
- 
-        <body> 
-            <ul id="navigation"> 
-		   <div style="top:500px">
-                 <input id="fileInput" type="file" onchange="processFiles()"/>
-            </div>
-                <li onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)" >  
-                    <a href="#">±ÈÀı±ä»»</a> 
-                    <ul> 
-                        <li onclick="enlarge()"><a href="#">·Å´ó</a> </li> 
-                        <li onclick="shrink()"><a href="#">ËõĞ¡</a></li> 
-                    </ul> 
-                </li> 
-                <li onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)"> 
-                    <a href="#">Ğı×ª±ä»»</a> 
-                    <ul> 
-                        <li onclick="rotateshun()"><a href="#">Ë³Ê±ÕëĞı×ª5¡ã</a></li> 
-                        <li onclick="rotateni()"><a href="#">ÄæÊ±ÕëĞı×ª5¡ã</a></li> 
-                    </ul> 
-                </li> 
-                <li onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)"> 
-                    <a href="#">¶Ô³Æ±ä»»</a> 
-                    <ul> 
-                        <li onclick="symmetryx()"><a href="#">xÖá¶Ô³Æ</a></li> 
-                        <li onclick="symmetryy()"><a href="#">yÖá¶Ô³Æ</a></li> 
-                        <li onclick="symmetry0()"><a href="#">Ô­µã¶Ô³Æ</a></li> 
-                        <li onclick="symmetry1()"><a href="#">y=x¶Ô³Æ</a></li>
-                        <li onclick="symmetry2()"><a href="#">y=-xÉÏ¶Ô³Æ</a></li>  
-                    </ul> 
-                </li> 
-                <li onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)"> 
-                    <a href="#">Æ½ÒÆ±ä»»</a> 
-                    <ul> 
-                        <li onclick="translateright()" ><a href="#">ÓÒÆ½ÒÆ</a></li> 
-                        <li onclick="translatebutton()"><a href="#">ÏÂÆ½ÒÆ</a></li> 
-                        <li onclick="translateleft()"><a href="#">×óÆ½ÒÆ</a></li> 
-                        <li onclick="translatetop()"><a href="#">ÉÏÆ½ÒÆ</a></li> 
-                    </ul> 
-                </li> 
-                <li onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)"> 
-                    <a href="#">ÆäËû±ä»»</a> 
-                    <ul> 
-                        <li onclick="leftoblique()"><a href="#">×óĞ±±ä»»</a></li> 
-                        <li onclick="shrugged()"><a href="#">ËÊ¼ç±ä»»</a></li> 
-                    </ul> 
-                </li> 
-                <li onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)" >  
-                    <a href="#">»¹Ô­</a> 
-                    <ul> 
-                        <li onclick="reduction()"><a href="#">»¹Ô­</a> </li> 
-                        </ul> 
-                    </li> 
-            </ul>
-            <canvas id="myCanvas" width="900" height="900" style="border:1px solid #c3c3c3">your browser does not support the canvas tag </canvas>
-            
-            <script type="text/javascript "> 
-                //Êó±êÊôĞÔ
-                function displaySubMenu(li) { 
-                    var subMenu = li.getElementsByTagName("ul")[0]; 
-                    subMenu.style.display = "block"; 
-                } 
-                function hideSubMenu(li) { 
-                    var subMenu = li.getElementsByTagName("ul")[0]; 
-                    subMenu.style.display = "none"; 
-                } 
-            </script> 
-            <script>  
-                var number = new Array();//´æ´¢Ô­Ê¼µãÊı¾İ
-                var tran = new Array();//´æ´¢±ä»»µãÊı¾İ
-                var a = new Array();//´æ´¢xÖá
-                var b = new Array();
-                var tranx = new Array();//´æ´¢±ä»»xÖá
-                var trany = new Array();
-                //»¹Ô­
-                function reduction(){
-                    tran=number.slice(0);
-                    tranx=a.slice(0);
-                    trany=b.slice(0);
-                    draw(number);  
-                    dracanvas(tranx,trany);//×ø±êÏµ        
-                }
-                //×óĞ±±ä»»
-                function leftoblique(){
-                    var numberleftoblique = new Array();
-                    numberleftoblique=tran.slice(0);
-                    var xleftoblique=new Array();
-                    var yleftoblique=new Array();
-                    var sb=new Array();
-                    var b=0;
-                    xleftoblique=tranx.slice(0);
-                    yleftoblique=trany.slice(0);
-                    sb=outsourcing(numberleftoblique);
- 
-                    b=trany[trany.length-1]*Math.tan(Math.PI/12.0);
- 
-                    for(var i=0;i<numberleftoblique.length;i++){
-                        if(numberleftoblique[i]!=-1){
-                            x=numberleftoblique[i];
-                            y=numberleftoblique[i+1]; 
-                            x-=sb[0];
-                            y-=sb[1];
-                            numberleftoblique[i]=x*Math.cos(Math.PI/15.0)+y*Math.sin(Math.PI/12.0);
-                            numberleftoblique[i]+=sb[0];
-                            i++;
-                        }
-                    }
-                    tran=numberleftoblique.slice(0);
-                    
-                    draw(numberleftoblique);  
-                    dracanvas(xleftoblique,yleftoblique);//×ø±êÏµ        
-                }
-                //ËÊ¼ç±ä»»
-                function shrugged(){
-                    var numbershrugged = new Array();
-                    numbershrugged=tran.slice(0);
-                    var sb=new Array();
-                    sb=outsourcing(numbershrugged);
- 
-                    for(var i=0;i<numbershrugged.length;i++){
-                        if(numbershrugged[i]!=-1){
-                            x=numbershrugged[i];
-                            y=numbershrugged[++i]; 
-                            x-=sb[0];
-                            y-=sb[1];
-                            numbershrugged[i]=y*Math.cos(Math.PI/12.0)-x*Math.sin(Math.PI/12.0);
-                            numbershrugged[i]+=sb[1];
-                        }
-                    }
-                    tran=numbershrugged.slice(0);
-                    
-                    draw(numbershrugged);  
-                    dracanvas(tranx,tranx);//×ø±êÏµ        
-                }
-                //·Å´ó
-                function enlarge(){
-                    var numberlarge = new Array();
-                    numberlarge=tran.slice(0);
-                    var xlarge=new Array();
-                    var ylarge=new Array();
-                    xlarge=tranx.slice(0);
-                    ylarge=trany.slice(0);
- 
-                    for(var i=0;i<numberlarge.length;i++){
-                        if(numberlarge[i]!=-1){
-                            numberlarge[i]*=1.05;
-                        }
-                       
-                    }
-                    for(var i=0;i<tran.length;i++){
-                        xlarge[i]*=1.05;
-                        ylarge[i]*=1.05;            
-                    }
-                    tran=numberlarge.slice(0);
-                    
-                    draw(numberlarge);
-                    dracanvas(xlarge,ylarge);//×ø±êÏµ
-                    
-                } 
-                //ËõĞ¡
-                function shrink(){
-                    var numbershrink = new Array();
-                    numbershrink=tran.slice(0);
-                    var xshrink=new Array();
-                    var yshrink=new Array();
-                    xshrink=tranx.slice(0);
-                    yshrink=trany.slice(0);
- 
-                    for(var i=0;i<numbershrink.length;i++){
-                        if(numbershrink[i]!=-1){
-                            numbershrink[i]*=0.95;
-                        }
-                       
-                    }
-                    for(var i=0;i<tran.length;i++){
-                        xshrink[i]*=0.95;
-                        yshrink[i]*=0.95;         
-                    }
-                    tran=numbershrink.slice(0);
-                    
-                    draw(numbershrink);
-                    dracanvas(xshrink,yshrink);//×ø±êÏµ
-                }
-                //ÓÒÆ½ÒÆ
-                function translateright(){
-                    var numbertranslateright = new Array();
-                    numbertranslateright=tran.slice(0);
-                    var xtranslateright=new Array();
-                    var ytranslaterighte=new Array();
-                    xtranslateright=tranx.slice(0);
-                    ytranslateright=trany.slice(0);
- 
-                    for(var i=0;i<numbertranslateright.length;i++){
-                        if(numbertranslateright[i]!=-1){
-                            numbertranslateright[i]+=0.2;
-                            i++;
-                        }                 
-                    }
-                    for(var i=0;i<tran.length;i++){
-                        xtranslateright[i]+=3;            
-                    }
-                    tran=numbertranslateright.slice(0);
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript"></script>            
+    <meta charset = "utf-8">
+</head>
+<body>
+    <div id = "div1"  />
+        <h1>ç»˜åˆ¶å§“åä»¥åŠå›¾å½¢å˜æ¢</h1>
+        <h3>10170430 é¡¾æ€ç¼˜</h3>
 
-                    draw(numbertranslateright);
-                    dracanvas(xtranslateright,ytranslateright);//×ø±êÏµ
-                }
-                //×óÆ½ÒÆ
-                function translateleft(){
-                    var numbertranslateleft = new Array();
-                    numbertranslateleft=tran.slice(0);
-                    var xtranslateleft=new Array();
-                    var ytranslateleft=new Array();
-                    xtranslateleft=tranx.slice(0);
-                    ytranslateleft=trany.slice(0);
- 
-                    for(var i=0;i<numbertranslateleft.length;i++){
-                        if(numbertranslateleft[i]!=-1){
-                            numbertranslateleft[i]-=0.2;
-                            i++;
-                        }                 
-                    }
-                    for(var i=0;i<tran.length;i++){
-                        xtranslateleft[i]-=3;            
-                    }
-                    tran=numbertranslateleft.slice(0);
-                    
-                    draw(numbertranslateleft);
-                    dracanvas(xtranslateleft,ytranslateleft);//×ø±êÏµ
-                }
-                //ÉÏÆ½ÒÆ
-                function translatetop(){
-                    var numbertranslatetop = new Array();
-                    numbertranslatetop=tran.slice(0);
-                    var xtranslatetop=new Array();
-                    var ytranslatetop=new Array();
-                    xtranslatetop=tranx.slice(0);
-                    ytranslatetop=trany.slice(0);
- 
-                    for(var i=0;i<numbertranslatetop.length;i++){
-                        if(numbertranslatetop[i]!=-1){
-                            numbertranslatetop[++i]-=0.2;
-                        }                 
-                    }
-                    for(var i=0;i<tran.length;i++){
-                        ytranslatetop[i]-=3;            
-                    }
-                    tran=numbertranslatetop.slice(0);
-                   
-                    draw(numbertranslatetop);
-                    dracanvas(xtranslatetop,ytranslatetop);//×ø±êÏµ
-                }
-                //ÏÂÆ½ÒÆ
-                function translatebutton(){
-                    var numbertranslatebutton = new Array();
-                    numbertranslatebutton=tran.slice(0);
-                    var xtranslatebutton=new Array();
-                    var ytranslatebutton=new Array();
-                    xtranslatebutton=tranx.slice(0);
-                    ytranslatebutton=trany.slice(0);
- 
-                    for(var i=0;i<numbertranslatebutton.length;i++){
-                        if(numbertranslatebutton[i]!=-1){
-                            numbertranslatebutton[++i]+=0.2;
-                        }                 
-                    }
-                    for(var i=0;i<tran.length;i++){
-                        ytranslatebutton[i]+=3;            
-                    }
-                    tran=numbertranslatebutton.slice(0);
-                    
-                    draw(numbertranslatebutton);
-                    dracanvas(xtranslatebutton,ytranslatebutton);//×ø±êÏµ
-                }
-                //Ë³Ê±ÕëĞı×ª
-                function rotateshun(){
-                    var numberrotateshun = new Array();
-                    numberrotateshun=tran.slice(0);
-                    var xrotateshun=new Array();
-                    var yrotateshun=new Array();
-                    var x,y;
-                    var sb=new Array();
-                    xrotateshun=tranx.slice(0);
-                    yrotateshun=trany.slice(0);
- 
-                    sb=outsourcing(numberrotateshun);
- 
-                    for(var i=0;i<numberrotateshun.length;i++){
-                        if(numberrotateshun[i]!=-1){
-                            x=numberrotateshun[i];
-                            y=numberrotateshun[i+1]; 
-                            x-=sb[0];
-                            y-=sb[1];
-                            numberrotateshun[i]=x*Math.cos(Math.PI/36.0)-y*Math.sin(Math.PI/36.0);
-                            numberrotateshun[i]+=sb[0];
-                            numberrotateshun[++i]=x*Math.sin(Math.PI/36.0)+y*Math.cos(Math.PI/36.0);
-                            numberrotateshun[i]+=sb[1];
-                        }
-                    }
-                    tran=numberrotateshun.slice(0);
-                    
-                    draw(numberrotateshun); 
-                    dracanvas(xrotateshun,yrotateshun);//×ø±êÏµ
-                    
-                }
-                //ÄæÊ±ÕëĞı×ª
-                function rotateni(){
-                    var numberrotateni = new Array();
-                    numberrotateni=tran.slice(0);
-                    var xrotateni=new Array();
-                    var yrotateni=new Array();
-                    var x,y;
-                    var sb=new Array();
-                    xrotateni=tranx.slice(0);
-                    yrotateni=trany.slice(0);
- 
-                    sb=outsourcing(numberrotateni);
- 
-                    for(var i=0;i<numberrotateni.length;i++){
-                        if(numberrotateni[i]!=-1){
-                            x=numberrotateni[i];
-                            y=numberrotateni[i+1]; 
-                            x-=sb[0];
-                            y-=sb[1];
-                            numberrotateni[i]=x*Math.cos(Math.PI/36.0)+y*Math.sin(Math.PI/36.0);
-                            numberrotateni[i]+=sb[0];
-                            numberrotateni[++i]=y*Math.cos(Math.PI/36.0)-x*Math.sin(Math.PI/36.0);
-                            numberrotateni[i]+=sb[1];
-                        }
-                    }
-                    tran=numberrotateni.slice(0);
-                    
-                    draw(numberrotateni); 
-                    dracanvas(xrotateni,yrotateni);//×ø±êÏµ
-                    
-                }
-                //yÖá¶Ô³Æ
-                function symmetryx(){
-                    var numbersymmetryx = new Array();
-                    numbersymmetryx=tran.slice(0);
-                    var xsymmetryx=new Array();
-                    var ysymmetryx=new Array();
-                    var x,y;
-                    var sb=new Array();
-                    xsymmetryx=tranx.slice(0);
-                    ysymmetryx=trany.slice(0);
- 
-                    sb=outsourcing(numbersymmetryx);
- 
-                    for(var i=1;i<numbersymmetryx.length;i++){
-                        if(numbersymmetryx[i]!=-1){
-                            x=numbersymmetryx[i];
-                            x-=sb[0];
-                            numbersymmetryx[i]=-x;
-                            numbersymmetryx[i]+=sb[0];
-                            i++;
-                        }
-                    }
-                    tran=numbersymmetryx.slice(0);
-                    
-                    draw(numbersymmetryx); 
-                    dracanvas(xsymmetryx,ysymmetryx);//×ø±êÏµ  
-                }
-                //xÖá¶Ô³Æ
-                function symmetryy(){
-                    var numbersymmetryy = new Array();
-                    numbersymmetryy=tran.slice(0);
-                    var xsymmetryy=new Array();
-                    var ysymmetryy=new Array();
-                    var x,y;
-                    var sb=new Array();
-                    xsymmetryy=tranx.slice(0);
-                    ysymmetryy=trany.slice(0);
- 
-                    sb=outsourcing(numbersymmetryy);
- 
-                    for(var i=1;i<numbersymmetryy.length;i++){
-                        if(numbersymmetryy[i]!=-1){
-                            y=numbersymmetryy[++i];
-                            y-=sb[1];
-                            numbersymmetryy[i]=-y;
-                            numbersymmetryy[i]+=sb[1];
-                        }
-                    }
-                    tran=numbersymmetryy.slice(0);
-                    
-                    draw(numbersymmetryy); 
-                    dracanvas(xsymmetryy,ysymmetryy);//×ø±êÏµ  
-                }
-                //Ô­µã¶Ô³Æ
-                function symmetry0(){
-                    var numbersymmetry0 = new Array();
-                    numbersymmetry0=tran.slice(0);
-                    var xsymmetry0=new Array();
-                    var ysymmetry0=new Array();
-                    var x,y;
-                    var sb=new Array();
-                    xsymmetry0=tranx.slice(0);
-                    ysymmetry0=trany.slice(0);
- 
-                    sb=outsourcing(numbersymmetry0);
- 
-                    for(var i=1;i<numbersymmetry0.length;i++){
-                        if(numbersymmetry0[i]!=-1){
-                            x=numbersymmetry0[i];
-                            x-=sb[0];
-                            numbersymmetry0[i]=-x;
-                            numbersymmetry0[i]+=sb[0];
- 
-                            y=numbersymmetry0[++i];
-                            y-=sb[1];
-                            numbersymmetry0[i]=-y;
-                            numbersymmetry0[i]+=sb[1];
-                        }
-                    }
-                    tran=numbersymmetry0.slice(0);
-                    
-                    draw(numbersymmetry0); 
-                    dracanvas(xsymmetry0,ysymmetry0);//×ø±êÏµ  
-                }
-                //y=x¶Ô³Æ
-                function symmetry1(){
-                    var numbersymmetry1 = new Array();
-                    numbersymmetry1=tran.slice(0);
-                    var xsymmetry1=new Array();
-                    var ysymmetry1=new Array();
-                    var x,y;
-                    var sb=new Array();
-                    xsymmetry1=tranx.slice(0);
-                    ysymmetry1=trany.slice(0);
- 
-                    sb=outsourcing(numbersymmetry1);
- 
-                    for(var i=1;i<numbersymmetry1.length;i++){
-                        if(numbersymmetry1[i]!=-1){
-                            x=numbersymmetry1[i];
-                            x-=sb[0];
-                            y=numbersymmetry1[++i];
-                            y-=sb[1];
-                            numbersymmetry1[--i]=y;
-                            numbersymmetry1[++i]=x;                            
-                 
-                            numbersymmetry1[--i]+=sb[0];
-                            numbersymmetry1[++i]+=sb[1];
-                        }
-                    }
-                    tran=numbersymmetry1.slice(0);
-                    
-                    draw(numbersymmetry1); 
-                    dracanvas(xsymmetry1,ysymmetry1);//×ø±êÏµ  
-                    
-                } 
-                //y=-x¶Ô³Æ
-                function symmetry2(){
-                    var numbersymmetry2 = new Array();
-                    numbersymmetry2=tran.slice(0);
-                    var xsymmetry2=new Array();
-                    var ysymmetry2=new Array();
-                    var x,y;
-                    var sb=new Array();
-                    xsymmetry2=tranx.slice(0);
-                    ysymmetry2=trany.slice(0);
- 
-                    sb=outsourcing(numbersymmetry2);
- 
-                    for(var i=1;i<numbersymmetry2.length;i++){
-                        if(numbersymmetry2[i]!=-1){
-                            x=numbersymmetry2[i];
-                            x-=sb[0];
-                            y=numbersymmetry2[++i];
-                            y-=sb[1];
-                            numbersymmetry2[--i]=-y;
-                            numbersymmetry2[++i]=-x;                            
-                 
-                            numbersymmetry2[--i]+=sb[0];
-                            numbersymmetry2[++i]+=sb[1];
-                        }
-                    }
-                    tran=numbersymmetry2.slice(0);
-                    
-                    draw(numbersymmetry2); 
-                    dracanvas(xsymmetry2,ysymmetry2);//×ø±êÏµ  
-                    
-                } 
-                //Ö÷º¯Êı
-                function processFiles(){ 
-                    var file=document.getElementById("fileInput").files[0];
-                    var reader=new FileReader();
-                    reader.readAsText(file);
-                    reader.onload=function(e)
-                    {
-                        var str = this.result;//¶ÁÈ¡ÎÄ±¾
-                          
-                        number= digitalExtraction(str,number);//ÌáÈ¡Êı×Ö²¢´æÈëÊı×é
-                        tran=number.slice(0);
-                        XY();
-                        draw(number);
-                        dracanvas(a,b);//×ø±êÏµ 
-                    
-                    }
-                }
-                //ÌáÈ¡Êı×Ö£¬²¢´æÈëÊı×é
-                function digitalExtraction(str,number){
-                        var heap= str.replace(/[^0-9.L]/ig,"A");
- 
-                        var numcharacter="";//´æ´¢Êı×Ö×Ö·û
-                        var number =new Array();//ÌáÈ¡Êı×ÖÊı×é
-                        var i=0;
-                        var flag=0;//heap×Ö·û´®µ±Ç°±ê¼Ç
-                        var n=0;//±êÊ¶Êı×ÖÓë×Ö·û×ª»»Î»ÖÃ
-                        var character=heap[flag];//»ñÈ¡×Ö·û´®µÄÒ»¸ö×Ö·û
-                      //document.write(heap);
-                        while(character!=null){
-                            if(character=="L"){
-                                number[i++]=-1;
-                                flag+=2;
-                                character=heap[flag];
-                            }
-                            if(character!="A"){
-                                n=1;
-                                numcharacter+=character;
-                            }
-                            else{
-                                if(n){
-                                    number[i++]=parseFloat(numcharacter);
-                                    numcharacter="";
-                                    n=0;
-                                }
-                            }
-                            character=heap[++flag];
-                        }
-                    
-                        return number;
-                }
-                //»­Í¼º¯Êı
-                function draw(numb){
-                    var canvas=document.getElementById('myCanvas');
-                        
-                        
-                    var cxt=canvas.getContext('2d'); 
-                    cxt.lineWidth = 2;
-                    cxt.strokeStyle = "red";   
-                    var n= numb.length;
-                    numb[n]=-1;
-                    var n= numb.length;
- 
-                    var flag=0;
-                    var x= new Array();
-                    var y =new Array();
-                    var j=0;
-                    cxt.clearRect(0,0,900,900);
-                    
-                    for(var i=1,j=0;i<n;i++){
-                        if(numb[i]!=-1){
-                            x[j]=numb[i]*10;
-                            y[j]=numb[++i]*10;
-                            j++;
-                        }else{
-                            cxt.beginPath();
-                            cxt.moveTo(x[0],y[0]);
-                            for(var k=1;k<j;k++){
-                                cxt.lineTo(x[k],y[k]);
-                            }
-                            cxt.stroke();
-                            j=0;
-                        }
-                    }
-                }
-                //XYÖá×ø±ê³õÊ¼»¯
-                function XY(){
-                    for(var i=0;i<32;i++){
-                        a[i]=1+i*10;
-                        b[i]=1+i*10;
-                    }
-                    tranx=a.slice(0);
-                    trany=b.slice(0);
-                }
-                //»­²¼
-                function dracanvas(ax,by){
-                    var canvas=document.getElementById("myCanvas");
- 
-                    var ctx =canvas.getContext('2d');
-                    ctx.lineWidth = 1;
-                    ctx.strokeStyle = "black";  
-                    
-                    for(var i=0;i<32;i++){
-                        ctx.beginPath();
-                        ctx.moveTo(ax[0],by[i]);
-                        ctx.lineTo(ax[31],by[i]);
-                        ctx.stroke();
-                    }
-                    for(var i=0;i<32;i++){
-                        ctx.beginPath();
-                        ctx.moveTo(ax[i],by[0]);
-                        ctx.lineTo(ax[i],by[31]);  
-                        ctx.stroke();
-                    }
-                }
-                //µ±Ç°Ãû×ÖÍ¼ĞÎÖĞĞÄÇó½â
-                function outsourcing(arr){
-                    var xs,ys,xb,yb;
-                    var xm,ym;
-                    var sb=new Array();
-                    xb=arr[1];
-                    yb=arr[2];
-                    xs=arr[1];
-                    ys=arr[2];
-                    for(var i=3;i<arr.length;i++){
-                        if(arr[i]!=-1){
-                            if(xb<arr[i]){
-                                xb=arr[i];
-                            }
-                            if(xs>arr[i]){
-                                xs=arr[i];
-                            }
-                            if(yb<arr[++i]){
-                                yb=arr[i];
-                            }
-                            if(ys>arr[i]){
-                                ys=arr[i];
-                            }
-                        }
-                    }
-                    xm=(xs+xb)/2;
-                    ym=(ys+yb)/2;
-                    sb[0]=xm;;
-                    sb[1]=ym;
- 
-                    return sb;
-                }
-                
-            </script>   
-        </body>  
-</html> 
+    <input id = "fileinput" type = "file"  />
+    <table>
+    <button onclick = "ReadFile(PointX,PointY)" >è¯»å…¥</button>
+    <button onclick = "DrawWord(PointX,PointY)" >ç»˜åˆ¶</button>
+    <button onclick = "ClearAll()">æ¸…å±</button>
+    </table>
+
+    <br> </br>
+    <canvas id = "myCanvas1" width = "500" height = "500"
+    style = "border : 1px solid #99D499;" >
+    </canvas>
+    <br> </br>
+    
+    <br> </br>
+    <button onclick = "leftMove()">å·¦æ–œå˜æ¢</button>
+    <br> </br>
+    <button onclick = "Shrugged()">è€¸è‚©å˜æ¢</button>
+    <br> </br>
+    <td>è¯·è¾“å…¥æ”¾å¤§å€æ•°ï¼š</td>
+    <input type = "number" min ="1" max ="10" id = "N" >
+    <button onclick = "Bigger()">æ”¾å¤§å˜æ¢</button>
+    <br> </br>
+    <td>è¯·è¾“å…¥ç¼©å°å€æ•°ï¼š</td>
+    <input type = "number" min ="1" max ="10" id = "M" >
+    <button onclick = "Smaller()">ç¼©å°å˜æ¢</button>
+    <br> </br>
+    <td>è¯·è¾“å…¥æ—‹è½¬è§’åº¦ï¼š</td>
+    <input type = "number" min ="1" max ="180" id = "angle1" >
+    <button onclick = "clockwiseRotation()">é¡ºæ—¶é’ˆæ—‹è½¬</button>
+    <button onclick = "AnticlockwiseRotation()">é€†æ—¶é’ˆæ—‹è½¬</button>
+    <br></br>
+    <td>è¯·è¾“å…¥X,Yæ–¹å‘å¹³ç§»é•¿åº¦ï¼š</td>
+    <input type = "number" min ="1" max = "100" id = "X" >
+    <input type = "number" min ="1" max = "100" id = "Y" >
+    <button onclick = "Translate()">å¹³ç§»å˜æ¢</button>
+    <br> </br>
+    <td>è¯·è¾“å…¥å¯¹ç§°è½´Xï¼š</td>
+    <input type = "number" min = "1" ,max = "100" id = "Xzhou">
+    <td>è¯·è¾“å…¥å¯¹ç§°è½´Yï¼š</td>
+    <input type = "number" min = "1" ,max = "100" id = "Yzhou">
+    <button onclick = "symmetryPoint()">å¹³ç§»å˜æ¢</button>
+
+<script>
+var PointX = new Array();
+var PointY = new Array();
+for (var m = 0;m < 100 ; m++)
+{
+    PointX[m] = new Array;
+    PointY[m] = new Array;
+    for (var n = 0;n < 10; n++)
+    {
+        PointX[m][n] = "";
+        PointY[m][n] = "";
+    }
+}
+var c = document.getElementById("myCanvas1");
+var ctx1 = c.getContext("2d");
+ctx1.fillStyle = "FF0000";   
+function ReadFile(PointX,PointY)
+{
+    var file = document.getElementById("fileinput").files[0];   
+    var reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = function(e)
+    {
+        var str = this.result; 
+        for (var m = 0;m < 100 ; m++)
+        {
+            for (var n = 0;n < 10; n++)
+            {
+                PointX[m][n] = "";
+                PointY[m][n] = "";
+            }
+        }
+        var items = new Array();
+        items = str.split("END\r\n"); //å­˜å‚¨æ¯ä¸ªç¬”ç”»
+        var lines = new Array();
+        for (var m = 0;m < items.length ; m++) //å­˜å‚¨æ¯ä¸ªç¬”ç”»æ¯è¡Œçš„å†…å®¹
+        {
+            lines[m] = new Array();
+            for (var n = 0;n < 10;n++)
+            {
+                lines[m][n] = "";
+            }
+        }
+        for (var i = 0;i < items.length ; i++)
+        {
+            lines[i] = items[i].split("\r\n");
+        }
+        for (var p = 0;p < lines.length ; p++)
+        {
+            for (var q = 1;q < lines[p].length ; q++)
+            {
+                PointX[p][q-1] = Number(lines[p][q].split(",")[0]);
+                PointY[p][q-1] = Number(lines[p][q].split(",")[1]);
+            }
+        }
+        ctx1.lineWidth = 0.5; 
+        for (var i = 0;i <= 50; i++)
+        {
+            ctx1.beginPath();
+            ctx1.moveTo(i * 10,0);
+            ctx1.lineTo(i * 10,500);
+            ctx1.moveTo(0,i * 10);
+            ctx1.lineTo(500,i * 10);
+            ctx1.stroke();
+        }
+    }
+}
+function ClearAll()
+{
+    ctx1.clearRect(0,0,500,500);
+    ctx1.lineWidth = 0.5; 
+    for (var i = 0;i <= 50; i++)
+    {
+        ctx1.beginPath();
+        ctx1.moveTo(i * 10,0);
+        ctx1.lineTo(i * 10,500);
+        ctx1.moveTo(0,i * 10);
+        ctx1.lineTo(500,i * 10);
+        ctx1.stroke();
+    }
+}
+function DrawWord()
+{
+    ctx1.lineWidth = 0.5; 
+    for (var i = 0;i <= 50; i++)
+    {
+        ctx1.beginPath();
+        ctx1.moveTo(i * 10,0);
+        ctx1.lineTo(i * 10,500);
+        ctx1.moveTo(0,i * 10);
+        ctx1.lineTo(500,i * 10);
+        ctx1.stroke();
+    }
+    ctx1.lineWidth = 3; 
+    for (var i = 0;i < PointX.length;i++)
+    {        
+        for (var j = 0;j < PointX[i].length;j++)
+        {                   
+            ctx1.beginPath();
+            ctx1.moveTo(PointX[i][j],PointY[i][j]);
+            ctx1.lineTo(PointX[i][j+1],PointY[i][j+1]); 
+            ctx1.stroke();
+        }
+    }
+}
+function leftMove()
+{
+    //å·¦æ–œå˜åŒ–
+    var b = PointY[0][0] - 2 * (PointX[0][0] - 10);
+    var m = 0;
+    for (var i = 0;i < PointX.length; i++)
+    {
+        for (var j = 0;j < PointX[i].length; j++)
+        {
+            m = PointX[i][j] - (PointY[i][j] - b) / 2;
+            PointX[i][j] = PointX[i][j] - (PointX[i][j] - m)/5;
+        }
+    }
+    ctx1.clearRect(0,0,500,500);
+    DrawWord(PointX,PointY,ctx1);
+}
+function Shrugged()
+{
+    //è€¸è‚©å˜åŒ–
+    var b = PointY[0][0] + 10 - PointX[0][0] / 2;
+    var n = 0;
+    for (var i = 0;i < PointX.length; i++)
+    {
+        for (var j = 0;j < PointX[i].length; j++)
+        {
+            n = (PointY[i][j] - b) / 2;
+            PointY[i][j] = PointY[i][j] + (PointX[i][j] / 2 + b - PointY[i][j]) / 5;
+        }
+    }
+    ctx1.clearRect(0,0,500,500);
+    DrawWord(PointX,PointY,ctx1);
+}
+function Bigger()
+{
+    //æ”¾å¤§ï¼ŒNä¸ºå€æ•°
+    var N = document.getElementById("N").value;
+    for (var i = 0;i < PointX.length; i++)
+    {
+        for (var j = 0;j < PointX[i].length; j++)
+        {
+            PointX[i][j] = Number(N) * (Number(PointX[i][j]) - Number(PointX[0][0])) + Number(PointX[0][0]);
+            PointY[i][j] = Number(N) * (Number(PointY[i][j]) - Number(PointY[0][0])) + Number(PointY[0][0]);
+        }
+    }
+    ctx1.clearRect(0,0,500,500);
+    DrawWord();
+}
+function Smaller()
+{
+    //ç¼©å°
+    var M = document.getElementById("M").value;
+    for (var i = 0;i < PointX.length; i++)
+    {
+        for (var j = 0;j < PointX[i].length; j++)
+        {
+            PointX[i][j] = (Number(PointX[i][j]) - Number(PointX[0][0]))/Number(M) + Number(PointX[0][0]);
+            PointY[i][j] = (Number(PointY[i][j]) - Number(PointY[0][0]))/Number(M) + Number(PointY[0][0]);
+        }
+    }
+    ctx1.clearRect(0,0,500,500);
+    DrawWord();
+}
+function clockwiseRotation()
+{
+    //é¡ºæ—¶é’ˆæ—‹è½¬
+    var angle = document.getElementById("angle1").value;
+    for (var i = 0;i < PointX.length; i++)
+    {
+        for (var j = 0;j < PointX[i].length; j++)
+        {
+            PointX[i][j] = Number(PointX[i][j] * Math.cos(angle) - Number(PointY[i][j]) * Math.sin(angle));
+            PointY[i][j] = Number(PointY[i][j] * Math.sin(angle) + Number(PointY[i][j]) * Math.cos(angle));
+        }
+    }
+    ctx1.clearRect(0,0,500,500);
+    DrawWord();
+}
+function AnticlockwiseRotation()
+{
+    //é€†æ—¶é’ˆæ—‹è½¬
+    var angle = document.getElementById("angle1").value;
+    for (var i = 0;i < PointX.length; i++)
+    {
+        for (var j = 0;j < PointX[i].length; j++)
+        {
+            PointX[i][j] = Number(PointX[i][j]) * Math.cos(-angle) - Number(PointY[i][j]) * Math.sin(-angle);
+            PointY[i][j] = Number(PointY[i][j]) * Math.sin(-angle) + Number(PointY[i][j]) * Math.cos(-angle);
+        }
+    }
+    ctx1.clearRect(0,0,500,500);
+    DrawWord();
+}
+function symmetryXLine()
+{
+    //Xå¯¹ç§°
+    for (var i = 0;i < PointX.length; i++)
+    {
+        for (var j = 0;j < PointX[i].length; j++)
+        {
+            PointY[i][j] = Number(PointY[i][j]) + 2 * (Number(Y) - Number(PointY[i][j]));
+        }
+    }
+    ctx1.clearRect(0,0,500,500);
+    DrawWord(PointX,PointY,ctx1);
+}
+function symmetryYLine()
+{
+    //Yå¯¹ç§°
+    for (var i = 0;i < PointX.length; i++)
+    {
+        for (var j = 0;j < PointX[i].length; j++)
+        {
+            PointX[i][j] = Number(PointX[i][j]) + 2 * (Number(X) - Number(PointX[i][j]));
+        }
+    }
+    ctx1.clearRect(0,0,500,500);
+    DrawWord();
+}
+function symmetryPoint()
+{
+    //ç‚¹å¯¹ç§°
+    var Xlen = document.getElementById("Xzhou").value;
+    var Ylen = document.getElementById("Yzhou").value;
+    for (var i = 0;i < PointX.length; i++)
+    {
+        for (var j = 0;j < PointX[i].length; j++)
+        {
+            PointX[i][j] = Number(PointX[i][j]) + 2 * (Number(Xlen) - Number(PointX[i][j]));
+            PointY[i][j] = Number(PointY[i][j]) + 2 * (Number(Ylen) - Number(PointY[i][j]));
+        }
+    }
+    ctx1.clearRect(0,0,500,500);
+    DrawWord();
+}
+function Translate()
+{
+    //å¹³ç§»
+    var Xlen = document.getElementById("X").value;
+    var Ylen = document.getElementById("Y").value;  
+    for (var i = 0;i < PointX.length; i++)
+    {
+        for (var j = 0;j < PointX[i].length; j++)
+        {
+            PointX[i][j] = Number(Xlen) + Number(PointX[i][j]);
+            PointY[i][j] = Number(Ylen) + Number(PointY[i][j]);
+        }
+    }
+    ctx1.clearRect(0,0,500,500);
+    DrawWord();
+}
+</script>
+</body>
+</html>
